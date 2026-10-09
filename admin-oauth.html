@@ -1,0 +1,76 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#12372f"><title>Administração · Vale na Conta</title><style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#233d2e;background:#f1f6f2}*{box-sizing:border-box}body{margin:0}header{background:#12372f;color:#fff;padding:22px 20px}header>div,main{max-width:1020px;margin:auto}header h1{margin:3px 0;font-size:24px}header a{color:#c8eed8;font-size:13px;text-decoration:none}main{padding:22px 16px 70px}.panel{background:white;padding:23px;border:1px solid #e0eae3;border-radius:16px;margin-bottom:15px;box-shadow:0 4px 17px #1d463312}.hidden{display:none!important}.muted{color:#667b6f;font-size:13px;line-height:1.55}.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h2{font-size:19px;margin:0 0 10px}h3{margin:0 0 10px;font-size:15px}label{font-weight:700;font-size:12px;display:block;color:#516b5a}input,textarea,select{width:100%;min-height:42px;padding:10px;border:1px solid #ccdcd0;border-radius:9px;font:inherit;margin-top:6px;background:#fff;color:#193926}textarea{min-height:67px;resize:vertical}input:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid #68b388;outline-offset:2px}.btn{background:#185a40;border:0;color:white;border-radius:9px;padding:11px 14px;font-weight:750;font-size:13px;cursor:pointer}.btn.secondary{color:#185a40;background:#e7f2eb}.btn.danger{color:#973e32;background:#fff0ed}.btn:disabled{opacity:.45;cursor:not-allowed}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.row>*{flex-shrink:0}.info{background:#eef7f1;padding:13px 15px;border:1px solid #d8e9de;border-radius:10px}.pill{font-size:11px;border:1px solid #bedbc8;background:#eef7f0;border-radius:99px;padding:6px 11px;color:#32674b}.menu-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #e4ede6}.menu-row small{display:block;color:#718277;margin-top:4px}.menu-actions{display:flex;gap:5px}.menu-actions button{padding:7px 10px}.spaced{margin-top:18px}.msg{padding:12px 14px;border:1px solid #c4decc;background:#eaf6ee;border-radius:9px;margin-bottom:14px;font-size:13px}.msg.error{border-color:#efc8c1;background:#fff3f1;color:#9d3930}.list{max-height:460px;overflow:auto;border-top:1px solid #e3ece5}.hint{font-size:12px;color:#60796a}.state{font-weight:800;color:#1e6b44}.warn{background:#fff9ed;padding:12px;border-radius:9px;font-size:12px;color:#785624;margin-top:12px}@media(max-width:620px){.grid{grid-template-columns:1fr}.menu-row{grid-template-columns:1fr}.menu-actions{justify-content:flex-start}header h1{font-size:21px}}
+</style></head><body><header><div><a href="./">← Voltar ao aplicativo</a><h1>Vale na Conta · Administração</h1><span style="font-size:13px;color:#c6e9d1">Publicação oficial de restaurantes e cardápios</span></div></header><main>
+<div id="message" class="msg hidden" role="status" aria-live="polite"></div>
+<section class="panel" id="authPanel"><h2>Entrar com GitHub</h2><p class="muted">A publicação oficial é restrita à conta GitHub <b>gmachado0</b>. Faça login pela página segura do GitHub. Não é necessário copiar um token.</p><div class="row spaced"><button class="btn" id="connect" type="button">Entrar com GitHub</button></div><p class="hint">A sessão é protegida por cookie seguro, com expiração após sete dias. Nenhuma senha ou token de acesso aparece nesta página.</p></section>
+<section id="workspace" class="hidden"><div class="panel bar"><div><b id="connectedAs"></b><p class="muted" style="margin:4px 0">Catálogo oficial · <span id="catalogVersion"></span></p></div><div class="row"><span id="dirtyStatus" class="pill">Nenhuma alteração</span><button id="disconnect" type="button" class="btn secondary">Sair</button></div></div>
+<section class="panel"><div class="bar"><div><h2>Restaurantes oficiais</h2><p class="muted">Edite os dados em rascunho. Nada fica público até clicar em Publicar.</p></div><button class="btn secondary" id="newRestaurant" type="button">+ Novo restaurante</button></div><label>Restaurante <select id="restaurants"></select></label><div class="grid spaced"><label>Nome <input id="restaurantName" maxlength="70"></label><label>Link do cardápio original (opcional) <input id="restaurantUrl" placeholder="https://..." type="url"></label></div><label class="spaced">Descrição <textarea id="restaurantDescription" maxlength="300"></textarea></label><div class="row spaced"><button class="btn secondary" id="saveRestaurant" type="button">Salvar informações no rascunho</button><button class="btn danger" id="deleteRestaurant" type="button">Remover restaurante</button></div></section>
+<section class="panel"><h2>Pratos e preços</h2><form id="mealForm"><div class="grid"><label>Nome do prato <input id="mealName" maxlength="100" required></label><label>Preço (R$) <input id="mealPrice" type="number" min="0" max="10000" step=".01" required></label></div><label class="spaced">Categoria <input id="mealCategory" maxlength="60" placeholder="Ex.: Marmitas"></label><div class="row spaced"><button id="saveMeal" class="btn" type="submit">Adicionar prato ao rascunho</button><button id="cancelMeal" class="btn secondary hidden" type="button">Cancelar edição</button><span id="mealCount" class="hint"></span></div></form><div id="mealList" class="list spaced"></div></section>
+<section class="panel"><div class="bar"><div><h2>Publicação</h2><p class="muted">Revise as alterações antes de enviar ao catálogo oficial de todos os usuários.</p></div><span class="pill">Repositório: main</span></div><p class="hint">As atualizações são gravadas em <code>catalogo-oficial.json</code>, com histórico de versões no GitHub. Uma alteração nos preços publicados também poderá afetar o planejamento de quem estiver usando esses pratos.</p><div class="row spaced"><button id="publish" class="btn" disabled type="button">Publicar para todos</button><button id="discard" type="button" class="btn secondary">Descartar rascunho</button><button id="exportDraft" type="button" class="btn secondary">Baixar backup JSON</button></div></section></section>
+</main><script>(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const endpoint='/api/catalog';
+let catalog=null,sha='',editingIndex=null,dirty=false;
+function flash(text,error=false){const el=$('message');el.textContent=text;el.className='msg'+(error?' error':'');el.scrollIntoView({block:'nearest'})}
+function cleanText(v,max){return String(v||'').trim().slice(0,max)}
+function sanitizeMeal(m){if(m===null)return null;if(!Array.isArray(m)||typeof m[0]!=='string'||!m[0].trim()||!Number.isFinite(Number(m[1]))||Number(m[1])<0||Number(m[1])>10000)return null;return [cleanText(m[0],100),Number(m[1]),cleanText(m[2]||'Outros',60)]}
+function sanitize(raw){if(!raw||!Array.isArray(raw.restaurants))throw Error('Formato de catálogo não reconhecido.');
+ return {schema:1,updatedAt:String(raw.updatedAt||''),restaurants:raw.restaurants.filter(r=>r&&/^[a-z0-9]+$/.test(r.id||'')).slice(0,100).map(r=>({id:r.id,name:cleanText(r.name,70),description:cleanText(r.description,300),update:cleanText(r.update,300),url:cleanText(r.url,500),meals:Array.isArray(r.meals)?r.meals.slice(0,500).map(sanitizeMeal):[]}))};}
+const base64ToText=b64=>new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g,'')),x=>x.charCodeAt(0)));
+const textToBase64=str=>{const bytes=new TextEncoder().encode(str);let binary='';for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.slice(i,i+8192));return btoa(binary)};
+async function github(url,options={}){
+ let res;
+ if(options.method==='PUT'){
+  const payload=JSON.parse(options.body);
+  res=await fetch('/api/catalog',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({sha:payload.sha,catalog:JSON.parse(base64ToText(payload.content))})});
+  const body=await res.json();
+  if(!res.ok)throw Error(body.error||'Publicação não autorizada');
+  return {content:{sha:body.sha}};
+ }
+ res=await fetch('/api/catalog',{cache:'no-store'});
+ const body=await res.json();
+ if(!res.ok)throw Error(body.error||'Sessão encerrada');
+ return {sha:body.sha,content:textToBase64(body.content)};
+}
+async function loadRemote(){const file=await github(endpoint+'?ref=main');sha=file.sha;catalog=sanitize(JSON.parse(base64ToText(file.content)));dirty=false;editingIndex=null;draw();}
+function current(){return catalog?.restaurants.find(r=>r.id===$('restaurants').value)}
+function mark(){dirty=true;$('dirtyStatus').textContent='Alterações não publicadas';$('publish').disabled=false}
+function clearMealForm(){$('mealForm').reset();editingIndex=null;$('saveMeal').textContent='Adicionar prato ao rascunho';$('cancelMeal').classList.add('hidden')}
+function draw(){const picker=$('restaurants'),selected=picker.value;picker.replaceChildren();catalog.restaurants.forEach(r=>{const option=document.createElement('option');option.value=r.id;option.textContent=r.name;picker.append(option)});picker.value=catalog.restaurants.some(r=>r.id===selected)?selected:catalog.restaurants[0]?.id||'';drawDetail();$('catalogVersion').textContent=catalog.updatedAt||'Data não informada';$('dirtyStatus').textContent=dirty?'Alterações não publicadas':'Nenhuma alteração';$('publish').disabled=!dirty}
+function drawDetail(){const r=current();if(!r){$('restaurantName').value='';$('restaurantDescription').value='';$('restaurantUrl').value='';$('mealList').replaceChildren();return}
+ $('restaurantName').value=r.name;$('restaurantDescription').value=r.description||'';$('restaurantUrl').value=r.url||'';
+ const list=$('mealList');list.replaceChildren();let count=0;
+ r.meals.forEach((m,i)=>{if(!m)return;count++;const row=document.createElement('div');row.className='menu-row';
+ const detail=document.createElement('div');const bold=document.createElement('b');bold.textContent=m[0]+' · '+Number(m[1]).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});const category=document.createElement('small');category.textContent=m[2]||'Outros';detail.append(bold,category);
+ const actions=document.createElement('div');actions.className='menu-actions';const edit=document.createElement('button');edit.className='btn secondary';edit.type='button';edit.textContent='Editar';
+ edit.onclick=()=>{editingIndex=i;$('mealName').value=m[0];$('mealPrice').value=m[1];$('mealCategory').value=m[2]||'';$('saveMeal').textContent='Salvar prato';$('cancelMeal').classList.remove('hidden');$('mealName').focus()};
+ const del=document.createElement('button');del.className='btn danger';del.type='button';del.textContent='Excluir';del.onclick=()=>{if(!confirm('Remover este prato do catálogo publicado após a próxima publicação?'))return;r.meals[i]=null;mark();clearMealForm();drawDetail()};
+ actions.append(edit,del);row.append(detail,actions);list.append(row)});$('mealCount').textContent=count+' itens';
+}
+$('connect').onclick=()=>{location.assign('/auth/login')};
+$('disconnect').onclick=async()=>{if(dirty&&!confirm('Descartar as alterações não publicadas?'))return;await fetch('/auth/logout',{method:'POST'});catalog=null;sha='';$('workspace').classList.add('hidden');$('authPanel').classList.remove('hidden');flash('Sessão encerrada.')};
+async function restoreSession(){
+ try{const res=await fetch('/api/session',{cache:'no-store'}),user=await res.json();if(!user.authenticated)return;
+ await loadRemote();$('authPanel').classList.add('hidden');$('workspace').classList.remove('hidden');$('connectedAs').textContent='Conectado como @'+user.login;
+ }catch(e){flash('Não foi possível carregar a sessão: '+e.message,true)}
+}
+restoreSession();
+$('restaurants').onchange=()=>{clearMealForm();drawDetail()};
+$('newRestaurant').onclick=()=>{if(catalog.restaurants.length>=100)return flash('Limite de restaurantes alcançado.',true);const name=prompt('Nome do novo restaurante:');if(!name?.trim())return;const id='custom'+Date.now().toString(36);catalog.restaurants.push({id,name:cleanText(name,70),description:'',update:'Cardápio oficial cadastrado pela administração',url:'',meals:[]});mark();draw();$('restaurants').value=id;drawDetail()};
+$('saveRestaurant').onclick=()=>{const r=current();if(!r)return;const name=cleanText($('restaurantName').value,70);if(!name)return flash('O restaurante precisa ter nome.',true);
+ const url=cleanText($('restaurantUrl').value,500);if(url){try{const parsed=new URL(url);if(!['http:','https:'].includes(parsed.protocol))throw Error()}catch{return flash('Utilize um link de cardápio http ou https.',true)}}
+ r.name=name;r.description=cleanText($('restaurantDescription').value,300);r.url=url;mark();draw();flash('Informações salvas no rascunho.')};
+$('deleteRestaurant').onclick=()=>{const r=current();if(!r)return;if(!confirm('Remover o restaurante '+r.name+' do catálogo oficial na próxima publicação?'))return;catalog.restaurants=catalog.restaurants.filter(x=>x.id!==r.id);mark();clearMealForm();draw()};
+$('mealForm').onsubmit=e=>{e.preventDefault();const r=current();if(!r)return;const name=cleanText($('mealName').value,100),price=Number($('mealPrice').value),cat=cleanText($('mealCategory').value||'Outros',60);if(!name||!Number.isFinite(price)||price<0||price>10000)return flash('Revise nome e preço.',true);
+ if(editingIndex===null){if(r.meals.length>=500)return flash('Limite de itens alcançado.',true);r.meals.push([name,price,cat])}else r.meals[editingIndex]=[name,price,cat];mark();clearMealForm();drawDetail()};
+$('cancelMeal').onclick=clearMealForm;
+$('discard').onclick=async()=>{if(dirty&&!confirm('Descartar todas as alterações deste rascunho?'))return;try{await loadRemote();flash('Rascunho descartado.')}catch(e){flash('Erro: '+e.message,true)}};
+$('exportDraft').onclick=()=>{const blob=new Blob([JSON.stringify(catalog,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='vale-na-conta-catalogo-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+$('publish').onclick=async()=>{if(!dirty||!catalog)return;if(!confirm('Publicar as alterações do catálogo oficial para todos os usuários?'))return;const button=$('publish');button.disabled=true;try{
+ // Verifica SHA; evita sobrescrever outra atualização simultânea.
+ const latest=await github(endpoint+'?ref=main');if(latest.sha!==sha)throw Error('O catálogo foi alterado em outra sessão. Faça um backup, recarregue e revise antes de publicar.');
+ catalog.updatedAt=new Date().toISOString();const clean=sanitize(catalog);
+ const result=await github(endpoint,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Atualiza cardápio oficial pelo painel administrativo',content:textToBase64(JSON.stringify(clean,null,2)),sha,branch:'main'})});
+ sha=result.content?.sha||sha;catalog=clean;dirty=false;draw();flash('Publicado no GitHub! O catálogo aparecerá no site público assim que a atualização for propagada.');
+ }catch(e){flash('Publicação não concluída: '+e.message,true)}finally{button.disabled=!dirty}};
+})();</script></body></html>
