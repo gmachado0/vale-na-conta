@@ -96,6 +96,9 @@
 .compare-v2 .compare-more[open]>summary::before{content:'▾'}
 .compare-v2 .compare-more>summary:focus-visible{outline:2px solid #5eb387;outline-offset:2px}
 @media(max-width:600px){.compare-v2 .compare-item button{min-height:46px}}
+
+/* Seção comparador desativada, sem excluir seu código ou dados. */
+[hidden]{display:none!important}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -665,8 +668,14 @@ $('importMenus').onchange=async e=>{const file=e.target.files?.[0];if(!file)retu
  try{const data=JSON.parse(await file.text());if(data.format!=='vale-na-conta-menus-v1'||!data.menuData)throw Error('Formato inválido');
  if(!confirm('Importar este backup? Isso substituirá seus cardápios personalizados. Os registros do calendário serão mantidos, mas pratos removidos do backup poderão ficar indisponíveis.'))return;
  state.menuData=sanitizeMenuData(data.menuData);save();resetMealEditor();updateMenuViews();initCompareFreight();notice('Cardápios importados.')}catch(error){notice('Não foi possível importar esse arquivo JSON.')}};
+const COMPARISON_ENABLED=false; // Reative definindo true; o comparador e seus dados continuam no projeto.
+if(!COMPARISON_ENABLED){
+ $('viewCompare').hidden=true;
+ $('viewCompare').parentElement.hidden=true;
+ document.querySelectorAll('a[href="#compareSection"]').forEach(link=>link.hidden=true);
+}
 function setCatalogView(view,scroll=false){
- const comparing=view==='compare';
+ const comparing=COMPARISON_ENABLED&&view==='compare';
  $('explorePane').classList.toggle('hidden',comparing);
  $('compareSection').classList.toggle('hidden',!comparing);
  $('viewExplore').classList.toggle('active',!comparing);
@@ -683,7 +692,10 @@ document.querySelectorAll('a[href="#compareSection"],a[href="#catalogSection"]')
  setCatalogView(comparing,true);
  history.replaceState(null,'',comparing?'#compareSection':'#catalogSection');
 }));
-if(location.hash==='#compareSection')setCatalogView('compare');
+if(location.hash==='#compareSection'){
+ setCatalogView(COMPARISON_ENABLED?'compare':'explore');
+ if(!COMPARISON_ENABLED)history.replaceState(null,'','#catalogSection');
+}
 function setTab(next){tab=next;[['restaurants','Restaurants'],['own','Own'],['manage','Manage']].forEach(([key,cap])=>{$(key+'Pane').classList.toggle('hidden',key!==next);$('tab'+cap).classList.toggle('active',key===next);$('tab'+cap).setAttribute('aria-pressed',String(key===next))});if(next==='manage')renderMenuManager()}
 $('tabRestaurants').onclick=()=>setTab('restaurants');$('tabOwn').onclick=()=>setTab('own');$('tabManage').onclick=()=>setTab('manage');$('search').addEventListener('input',renderCatalog);$('category').addEventListener('change',e=>{filter=e.target.value;renderCatalog()});['allowance','workdays','daily'].forEach(id=>$(id).addEventListener('change',e=>{state[id]=Number(e.target.value);state=normalize(state);refresh()}));$('addForm').addEventListener('submit',e=>{e.preventDefault();const name=$('newName').value.trim(),price=Number($('newPrice').value);if(!name||!Number.isFinite(price)||price<0||price>10000)return;if(state.own.length>=150){notice('Limite de refeições pessoais alcançado.');return}state.own.push([name.slice(0,100),price]);$('addForm').reset();renderCalendar();renderDays();renderOwn();refresh();notice('Sua refeição foi adicionada.')});$('clearWeek').onclick=()=>{delete state.entries[activeDay];renderCalendar();renderDays();refresh()};$('clearMenu').onclick=()=>{if(!confirm('Excluir todas as suas refeições pessoais?'))return;state.own=[];Object.values(state.entries).forEach(e=>{if(e.key.startsWith('own:'))e.key='' });renderCalendar();renderDays();renderOwn();refresh()};$('reset').onclick=()=>{if(!confirm('Recomeçar o planejamento?\n\nSerão apagados: refeições registradas no calendário (planejadas e realizadas), valor do vale, limite diário e dias úteis previstos.\n\nSerão preservados: todas as compras de mercado, restaurantes e cardápios personalizados e suas refeições avulsas.'))return;
  const previous=state;
