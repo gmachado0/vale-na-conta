@@ -313,8 +313,8 @@ function renderMarketPurchases(day){
  add.onclick=()=>{if(day>localDate(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())){notice('Registre apenas compras já realizadas.');return}close();form.classList.remove('hidden');add.classList.add('hidden');store.focus()};
  cancel.onclick=close;
  form.onsubmit=e=>{e.preventDefault();if(day>localDate(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())){notice('Não é possível registrar compras futuras.');return}
-  const raw=amount.value.trim();const normalized=raw.replace(/\\s/g,'').replace(/^R\\$/i,'').replace(/\\./g,'').replace(',','.');
-  if(!/^\\d+(?:\\.\\d{1,2})?$/.test(normalized)){notice('Informe um valor válido, como 37,69.');return}
+  const raw=amount.value.trim();const normalized=raw.replace(/\s/g,'').replace(/^R\$/i,'').replace(/\./g,'').replace(',','.');
+  if(!/^\d+(?:\.\d{1,2})?$/.test(normalized)){notice('Informe um valor válido, como 37,69.');return}
   const value=Math.round(Number(normalized)*100)/100;
   if(!store.value.trim()||!Number.isFinite(value)||value<=0||value>100000){notice('Preencha estabelecimento e valor pago válido.');return}
   if(editing){const existing=state.marketPurchases.find(p=>p.id===editing);if(existing){existing.store=store.value.trim().slice(0,80);existing.amount=value}}
