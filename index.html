@@ -102,6 +102,7 @@
 .backup-panel{margin-top:17px;border:1px solid #dce8df;border-radius:13px;background:#f9fcfa;padding:0 15px}.backup-panel>summary{cursor:pointer;color:#205e40;font-size:14px;font-weight:800;padding:16px 0}.backup-panel>summary span{display:block;color:#718379;font-size:12px;font-weight:400;margin-top:3px}.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:3px}.backup-card{border:1px solid #e2ebe4;border-radius:12px;background:white;padding:15px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}.backup-card>strong{font-size:15px}.backup-card p{font-size:12px;color:#5e7667;line-height:1.55;margin:0}.backup-file-label{cursor:pointer;font-size:13px}.backup-card input[type=file]{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}.backup-preview{width:100%;border:1px solid #c7dfcf;border-radius:10px;background:#f0f8f2;padding:12px;display:grid;gap:9px}.backup-preview.hidden{display:none}.backup-preview strong{font-size:13px}.backup-preview p{margin:0}.backup-preview .backup-error{color:#973733}.backup-actions{display:flex;gap:8px;flex-wrap:wrap}.backup-actions button:disabled{opacity:.45;cursor:not-allowed}.backup-panel>.caption{margin:14px 0 16px}@media(max-width:650px){.backup-grid{grid-template-columns:1fr}.backup-card{padding:13px}}
 .today-shortcut{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:13px;padding:14px;border:1px solid #d6e8dd;border-radius:13px;background:#f3faf5;margin:15px 0 4px}.today-shortcut-info{display:grid;gap:4px;min-width:0;flex:1}.today-shortcut-eyebrow{font-size:10px;color:#23724c;font-weight:800;letter-spacing:.1em}.today-shortcut-info strong{color:#194b32;font-size:15px;line-height:1.3;overflow-wrap:anywhere}.today-shortcut-info small{color:#617b68;font-size:11px;line-height:1.45}.today-shortcut-actions{display:flex;gap:8px;flex-wrap:wrap}.today-shortcut-actions .btn{min-height:40px}@media(max-width:600px){.today-shortcut{padding:13px}.today-shortcut-actions{width:100%}.today-shortcut-actions .btn{flex:1;min-width:0;white-space:normal}}
 .selected-day-title{scroll-margin-top:18px}
+.history-panel{margin:18px 0}.history-header{display:flex;justify-content:space-between;align-items:start;gap:14px}.history-header .sub{margin-bottom:0}.history-count{font-size:12px;color:#527a60;background:#edf5ef;padding:7px 10px;border-radius:20px;white-space:nowrap}.history-summary{font-size:13px;color:#527263;margin:16px 0}.history-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.history-month{border:1px solid #dfebe3;border-radius:13px;padding:16px;background:#fafcfb}.history-month-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:15px}.history-month-header strong{text-transform:capitalize;color:#163d2b}.history-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.history-values>div{display:grid;gap:5px;min-width:0}.history-values span{font-size:11px;color:#6c8375}.history-values strong{font-size:16px;color:#204b35;overflow-wrap:anywhere}.history-month-footer{font-size:12px;color:#416d53;border-top:1px solid #e0ebe2;padding-top:12px;margin:15px 0 0;line-height:1.4}.history-panel>.caption{margin-top:15px}@media(max-width:720px){.history-list{grid-template-columns:1fr}.history-panel{margin:14px 0}.history-month{padding:13px}}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -127,6 +128,7 @@
 <div class="lines"><div class="line"><span>Média por almoço comprado</span><strong id="avg"></strong></div><div class="line"><span>Dias registrados</span><strong id="count"></strong></div><div class="line"><span>Compras no mercado</span><strong id="marketSpent"></strong></div><div class="line"><span>Total para almoços</span><strong id="spent"></strong></div><div class="line"><span>Vale comprometido</span><strong id="pct"></strong></div></div>
 <div class="hintbox" id="dailyInfo"></div></details>
 <p class="caption">Os saldos são estimativas com base nos registros do aplicativo; não representam necessariamente o saldo real do cartão.</p></aside></div>
+<section class="panel history-panel" id="historySection"><div class="history-header"><div><h2>Histórico mensal</h2><p class="sub">Acompanhe refeições, compras no mercado e saldos estimados por mês.</p></div><span id="historyMonthsCount" class="history-count"></span></div><p id="historySummary" class="history-summary"></p><div id="historyList" class="history-list"></div><p class="caption">As refeições usam os preços atuais dos cardápios. O saldo só é calculado quando há um vale registrado para aquele mês.</p></section>
 <section class="panel catalog" id="catalogSection"><div class="catalog-head"><div><h2>Restaurantes e preços</h2><p class="sub" style="margin-bottom:0">Explore cardápios ou compare refeições, sem sair desta seção.</p></div></div>
 <div class="catalog-view-tabs" role="tablist" aria-label="Restaurantes e comparador">
 <button type="button" id="viewExplore" class="catalog-view-tab active" role="tab" aria-controls="explorePane" aria-selected="true">Explorar restaurantes</button>
@@ -201,7 +203,7 @@ const restaurants=[{id:'bk',name:'BK Lanches',description:'Cardápio enviado ao 
 const weekdays=['Segunda','Terça','Quarta','Quinta','Sexta'];
 const $=id=>document.getElementById(id), cash=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),clamp=(v,min,max)=>Math.min(max,Math.max(min,Number.isFinite(Number(v))?Number(v):min));
 const localDate=(y,m,d)=>y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-const fresh=()=>({allowance:0,workdays:0,daily:0,own:[],entries:{},menuData:{builtins:{},custom:[]},marketPurchases:[],month:new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0')});
+const fresh=()=>({allowance:0,workdays:0,daily:0,own:[],entries:{},menuData:{builtins:{},custom:[]},marketPurchases:[],monthAllowances:{},month:new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0')});
 const emptyEntry=()=>({key:'',mode:'included',fee:0,status:'planned'});
 const currentMonth=()=>state.month;
 const dateKeys=()=>{const [y,m]=currentMonth().split('-').map(Number);return Array.from({length:new Date(y,m,0).getDate()},(_,i)=>localDate(y,m-1,i+1))};
@@ -220,7 +222,11 @@ function normalize(obj){
  // Planos antigos não tinham datas: converter as cinco semanas para os primeiros dias úteis do mês corrente.
  if(!Object.keys(entries).length&&(Array.isArray(obj.weeks)||Array.isArray(obj.week))){const weeks=Array.isArray(obj.weeks)?obj.weeks:[obj.week],ship=Array.isArray(obj.deliveries)?obj.deliveries:[obj.delivery];const [y,m]=mon.split('-').map(Number);const days=Array.from({length:new Date(y,m,0).getDate()},(_,i)=>localDate(y,m-1,i+1)).filter(k=>{const dt=new Date(k+'T12:00:00').getDay();return dt!==0&&dt!==6});for(let n=0;n<Math.min(25,days.length);n++){const w=Math.floor(n/5),i=n%5,key=weeks[w]?.[i];if(typeof key!=='string'||!key)continue;const dl=ship[w]?.[i];entries[days[n]]={key,mode:['included','pickup','delivery'].includes(dl?.mode)?dl.mode:'included',fee:clamp(dl?.fee??0,0,10000),status:'planned'}}}
  const marketPurchases=Array.isArray(obj.marketPurchases)?obj.marketPurchases.slice(0,2000).filter(p=>p&&typeof p==='object'&&/^\d{4}-(0[1-9]|1[0-2])-[0-3]\d$/.test(p.date||'')&&typeof p.store==='string'&&p.store.trim()&&Number.isFinite(Number(p.amount))&&Number(p.amount)>0&&Number(p.amount)<=100000).map(p=>({id:String(p.id||'').slice(0,90)||'m'+Math.random().toString(36).slice(2),date:p.date,store:p.store.trim().slice(0,80),amount:Math.round(Number(p.amount)*100)/100})):[];
- return {marketPurchases,allowance:clamp(obj.allowance??0,0,100000),workdays:Math.round(clamp(obj.workdays??0,0,31)),daily:clamp(obj.daily??0,0,10000),own,entries,menuData:sanitizeMenuData(obj.menuData),month:mon};
+ const monthAllowances={};
+ if(obj.monthAllowances&&typeof obj.monthAllowances==='object'&&!Array.isArray(obj.monthAllowances)){
+  Object.entries(obj.monthAllowances).slice(0,240).forEach(([k,v])=>{if(/^\d{4}-(0[1-9]|1[0-2])$/.test(k)&&Number.isFinite(v)&&v>=0&&v<=100000)monthAllowances[k]=v});
+ }else if(Number(obj.allowance)>0){monthAllowances[mon]=clamp(obj.allowance,0,100000)}
+ return {monthAllowances,marketPurchases,allowance:clamp(obj.allowance??0,0,100000),workdays:Math.round(clamp(obj.workdays??0,0,31)),daily:clamp(obj.daily??0,0,10000),own,entries,menuData:sanitizeMenuData(obj.menuData),month:mon};
 }
 function sanitizeMenuData(raw){
  const out={builtins:{},custom:[]};if(!raw||typeof raw!=='object')return out;
@@ -599,8 +605,39 @@ function renderMarketPurchases(day,onChange=()=>{}){
  };
  draw();
 }
+function renderMonthlyHistory(){
+ const keys=new Set([state.month,...Object.keys(state.monthAllowances||{})]);
+ Object.keys(state.entries).forEach(k=>{if(/^\d{4}-\d{2}-\d{2}$/.test(k))keys.add(k.slice(0,7))});
+ state.marketPurchases.forEach(p=>keys.add(p.date.slice(0,7)));
+ const rows=[...keys].filter(k=>/^\d{4}-(0[1-9]|1[0-2])$/.test(k)).sort().reverse().map(month=>{
+  const entries=Object.entries(state.entries).filter(([k])=>k.startsWith(month+'-'));
+  let realized=0,planned=0,count=0;
+  entries.forEach(([,e])=>{if(!e.key)return;count++;if(e.status==='done')realized+=entryPrice(e);else planned+=entryPrice(e)});
+  const market=state.marketPurchases.filter(p=>p.date.startsWith(month+'-')).reduce((n,p)=>n+p.amount,0);
+  const allowance=Object.hasOwn(state.monthAllowances||{},month)?state.monthAllowances[month]:null;
+  return {month,realized,planned,market,allowance,count};
+ }).filter(m=>m.count||m.market||m.allowance!==null);
+ $('historyMonthsCount').textContent=rows.length+' '+(rows.length===1?'mês':'meses');
+ $('historySummary').textContent=rows.length?cash(rows.reduce((n,m)=>n+m.realized+m.market,0))+' em gastos realizados e compras de mercado, nos meses registrados.':'Registre refeições e compras para começar seu histórico.';
+ const root=$('historyList');root.replaceChildren();
+ rows.forEach(m=>{
+  const card=document.createElement('article');card.className='history-month';
+  const top=document.createElement('div');top.className='history-month-header';
+  const title=document.createElement('strong');const [year,num]=m.month.split('-').map(Number);title.textContent=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(year,num-1,1));
+  const open=document.createElement('button');open.type='button';open.className='btn secondary small';open.textContent='Ver mês';
+  open.onclick=()=>{state.month=m.month;activeDay='';renderCalendar();renderDays();refresh();document.querySelector('.month-navigation').scrollIntoView({behavior:'smooth',block:'start'})};
+  top.append(title,open);
+  const grid=document.createElement('div');grid.className='history-values';
+  [['Almoços realizados',cash(m.realized)],['Almoços planejados',cash(m.planned)],['Compras de mercado',cash(m.market)],['Vale registrado',m.allowance===null?'Não informado':cash(m.allowance)]].forEach(([label,value])=>{
+   const cell=document.createElement('div'),small=document.createElement('span'),strong=document.createElement('strong');small.textContent=label;strong.textContent=value;cell.append(small,strong);grid.append(cell)
+  });
+  const foot=document.createElement('p');foot.className='history-month-footer';foot.textContent=m.allowance===null?'Saldo não calculado: vale do mês desconhecido.':'Saldo estimado após gastos e reservas: '+cash(Math.round((m.allowance-m.realized-m.planned-m.market)*100)/100);
+  card.append(top,grid,foot);root.append(card);
+ });
+}
 function refresh(){
  updateTodayShortcut();
+ renderMonthlyHistory();
  ['allowance','workdays','daily'].forEach(id=>$(id).value=state[id]);
  const day=getEntry(activeDay),priceNode=$('dayPrice0');if(priceNode)priceNode.textContent=cash(entryPrice(day));
  const rows=monthlyRows(),purchased=rows.filter(r=>r.meal).length,home=rows.length-purchased;
@@ -794,7 +831,7 @@ if(location.hash==='#compareSection'){
  if(!COMPARISON_ENABLED)history.replaceState(null,'','#catalogSection');
 }
 function setTab(next){tab=next;[['restaurants','Restaurants'],['own','Own'],['manage','Manage']].forEach(([key,cap])=>{$(key+'Pane').classList.toggle('hidden',key!==next);$('tab'+cap).classList.toggle('active',key===next);$('tab'+cap).setAttribute('aria-pressed',String(key===next))});if(next==='manage')renderMenuManager()}
-$('tabRestaurants').onclick=()=>setTab('restaurants');$('tabOwn').onclick=()=>setTab('own');$('tabManage').onclick=()=>setTab('manage');$('search').addEventListener('input',renderCatalog);$('category').addEventListener('change',e=>{filter=e.target.value;renderCatalog()});['allowance','workdays','daily'].forEach(id=>$(id).addEventListener('change',e=>{state[id]=Number(e.target.value);state=normalize(state);refresh()}));$('addForm').addEventListener('submit',e=>{e.preventDefault();const name=$('newName').value.trim(),price=Number($('newPrice').value);if(!name||!Number.isFinite(price)||price<0||price>10000)return;if(state.own.length>=150){notice('Limite de refeições pessoais alcançado.');return}state.own.push([name.slice(0,100),price]);$('addForm').reset();renderCalendar();renderDays();renderOwn();refresh();notice('Sua refeição foi adicionada.')});$('clearWeek').onclick=()=>{delete state.entries[activeDay];renderCalendar();renderDays();refresh()};$('clearMenu').onclick=()=>{if(!confirm('Excluir todas as suas refeições pessoais?'))return;state.own=[];Object.values(state.entries).forEach(e=>{if(e.key.startsWith('own:'))e.key='' });renderCalendar();renderDays();renderOwn();refresh()};$('reset').onclick=()=>{if(!confirm('Recomeçar o planejamento?\n\nSerão apagados: refeições registradas no calendário (planejadas e realizadas), valor do vale, limite diário e dias úteis previstos.\n\nSerão preservados: todas as compras de mercado, restaurantes e cardápios personalizados e suas refeições avulsas.'))return;
+$('tabRestaurants').onclick=()=>setTab('restaurants');$('tabOwn').onclick=()=>setTab('own');$('tabManage').onclick=()=>setTab('manage');$('search').addEventListener('input',renderCatalog);$('category').addEventListener('change',e=>{filter=e.target.value;renderCatalog()});['allowance','workdays','daily'].forEach(id=>$(id).addEventListener('change',e=>{state[id]=Number(e.target.value);if(id==='allowance')state.monthAllowances[state.month]=state[id];state=normalize(state);refresh()}));$('addForm').addEventListener('submit',e=>{e.preventDefault();const name=$('newName').value.trim(),price=Number($('newPrice').value);if(!name||!Number.isFinite(price)||price<0||price>10000)return;if(state.own.length>=150){notice('Limite de refeições pessoais alcançado.');return}state.own.push([name.slice(0,100),price]);$('addForm').reset();renderCalendar();renderDays();renderOwn();refresh();notice('Sua refeição foi adicionada.')});$('clearWeek').onclick=()=>{delete state.entries[activeDay];renderCalendar();renderDays();refresh()};$('clearMenu').onclick=()=>{if(!confirm('Excluir todas as suas refeições pessoais?'))return;state.own=[];Object.values(state.entries).forEach(e=>{if(e.key.startsWith('own:'))e.key='' });renderCalendar();renderDays();renderOwn();refresh()};$('reset').onclick=()=>{if(!confirm('Recomeçar o planejamento?\n\nSerão apagados: refeições registradas no calendário (planejadas e realizadas), valor do vale, limite diário e dias úteis previstos.\n\nSerão preservados: todas as compras de mercado, restaurantes e cardápios personalizados e suas refeições avulsas.'))return;
  const previous=state;
  state={...fresh(),month:previous.month,menuData:previous.menuData,own:previous.own,marketPurchases:previous.marketPurchases};
  selected='bk';filter='Todos';syncRestaurants();setTab('restaurants');$('search').value='';
