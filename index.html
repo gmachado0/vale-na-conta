@@ -22,18 +22,49 @@
  .calendar-spend-badge{width:13px;height:13px;border-radius:4px}
  .calendar-spend-badge svg{width:10px;height:10px}
 }
+.finance-compact .balance{background:#195c42;color:#fff;padding:23px;border-radius:15px;margin-top:19px}
+.finance-compact .balance .eyebrow,.finance-compact .balance .muted{color:#deeee4}
+.finance-compact .balance .num{font-size:clamp(32px,3.5vw,43px);letter-spacing:-1.2px;color:#fff}
+.finance-compact .balance.over{background:#922e30}
+.finance-compact .finance-composition{border:1px solid #e1eae3;border-radius:13px;padding:15px;margin-top:12px}
+.finance-compact .finance-composition-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px}
+.finance-compact .finance-composition-head>span{color:#63766a;font-size:12px}
+.finance-compact .finance-composition-head b{color:#194f38}
+.finance-compact .finance-bar{margin:15px 0 11px}
+.finance-compact .finance-legend{margin-bottom:0;gap:9px 14px}
+.finance-compact .finance-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.finance-compact .finance-metrics>div{background:#f8fbf9;padding:14px;border-radius:12px;min-width:0}
+.finance-compact .finance-metrics span{font-size:12px;line-height:1.4}
+.finance-compact .finance-metrics strong{font-size:clamp(17px,2vw,21px);overflow-wrap:anywhere}
+.finance-compact .finance-hero{margin-top:12px}
+.finance-compact .finance-details{margin-top:14px;border-top:1px solid #e1eae3;padding-top:13px}
+.finance-compact .finance-details summary{cursor:pointer;color:#185b40;font-weight:750;font-size:13px;display:flex;justify-content:space-between;gap:10px;padding:8px 0}
+.finance-compact .finance-details[open] summary{margin-bottom:14px}
+.finance-compact .finance-details .lines{gap:12px}
+.finance-compact .caption{margin-top:14px}
+@media(max-width:600px){.finance-compact .finance-metrics>div{padding:12px}.finance-compact .finance-composition{padding:12px}}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell"><div class="stats"><div class="stat"><div class="eyebrow">Vale do mês</div><div class="num" id="topBudget">—</div><div class="muted">Benefício informado</div></div><div class="stat"><div class="eyebrow">Total reservado para almoços</div><div class="num" id="topSpent">—</div><div class="muted">Realizados + planejados</div></div><div class="stat"><div class="eyebrow">Média por almoço</div><div class="num" id="topAvg">—</div><div class="muted">Média dos almoços comprados</div></div></div>
 <div class="layout"><section class="panel"><h2>Planejamento mensal</h2><p class="sub">Configure seu benefício e escolha uma refeição para cada dia.</p><div class="fields"><div class="field"><label for="allowance">Vale recebido (R$)</label><input id="allowance" type="number" min="0" max="100000" step="0.01"></div><div class="field"><label for="workdays">Dias úteis previstos (informativo)</label><input id="workdays" type="number" min="0" max="31" step="1"></div><div class="field"><label for="daily">Limite diário (R$)</label><input id="daily" type="number" min="0" max="10000" step="0.01"></div></div><div class="heading"><h3>Calendário de refeições</h3><button class="btn secondary small" type="button" id="clearWeek">Limpar dia</button></div><div class="month-navigation"><button type="button" id="prevMonth" aria-label="Mês anterior">‹</button><strong id="monthTitle"></strong><button type="button" id="nextMonth" aria-label="Próximo mês">›</button></div><div class="calendar-grid" id="calendar"></div><div class="selected-day-title" id="dayTitle"></div><div id="days"></div><p class="muted" id="weekTotal"></p><div class="actions"><button type="button" class="btn" id="share">Compartilhar simulação</button><button type="button" class="btn secondary" id="exportJpg">Exportar JPG</button><button type="button" class="btn secondary" id="exportPdf">Exportar PDF</button><button type="button" class="btn secondary" id="reset">Recomeçar planejamento</button></div><p class="caption">Clique em uma data para registrar ou editar a refeição e o frete. O total considera somente os dias lançados. Fins de semana também podem receber registros.</p></section>
-<aside class="panel"><h2>Seu painel financeiro</h2><p class="sub">Planeje seus almoços e descubra quanto pode reservar para o mercado.</p>
+<aside class="panel finance-compact"><h2>Seu painel financeiro</h2><p class="sub">Acompanhe quanto do vale já foi utilizado e quanto está reservado para os próximos almoços.</p>
 <div class="balance market-primary" id="balance"><div class="eyebrow">Disponível para o mercado</div><div class="num good" id="left"></div><div class="muted" id="balanceInfo"></div></div>
+<section class="finance-composition" aria-label="Distribuição do vale">
+<div class="finance-composition-head"><strong>Uso do seu vale neste mês</strong><span>Vale: <b id="budget"></b></span></div>
 <div class="finance-bar" role="img" aria-label="Distribuição do vale entre refeições realizadas, planejadas, compras de mercado e valor disponível"><div id="barRealized"></div><div id="barReserved"></div><div id="barMarket"></div><div id="barFree"></div></div>
-<div class="finance-legend"><span><i class="dot done-dot"></i> Almoços realizados</span><span><i class="dot reserved-dot"></i> Almoços planejados</span><span><i class="dot market-dot"></i> Compras no mercado</span><span><i class="dot free-dot"></i> Disponível</span></div>
-<div class="finance-metrics"><div><span>Já gasto com almoços</span><strong id="realizedAmount"></strong></div><div><span>Reservado para almoços</span><strong id="reservedAmount"></strong></div><div><span>Gasto no mercado</span><strong id="marketAmount"></strong></div></div>
-<div class="finance-hero finance-secondary"><span>Saldo antes dos almoços planejados</span><strong id="availableNow"></strong><small>Desconta as refeições já realizadas e as compras de mercado registradas neste mês. Os almoços planejados ainda não foram subtraídos.</small></div>
-<div class="lines"><div class="line"><span>Vale recebido</span><strong id="budget"></strong></div><div class="line"><span>Média por almoço comprado</span><strong id="avg"></strong></div><div class="line"><span>Dias registrados</span><strong id="count"></strong></div><div class="line"><span>Compras no mercado</span><strong id="marketSpent"></strong></div><div class="line"><span>Total para almoços</span><strong id="spent"></strong></div><div class="line"><span>Vale comprometido</span><strong id="pct"></strong></div></div>
-<div class="hintbox" id="dailyInfo"></div><p class="caption">O valor para mercado é uma previsão, não o saldo real do cartão. Confira se todos os almoços do mês estão registrados. As compras de mercado registradas neste aplicativo são descontadas; despesas não cadastradas não entram no cálculo.</p></aside></div>
+<div class="finance-legend"><span><i class="dot done-dot"></i> Almoços realizados</span><span><i class="dot reserved-dot"></i> Almoços planejados</span><span><i class="dot market-dot"></i> Mercado</span><span><i class="dot free-dot"></i> Disponível</span></div>
+</section>
+<div class="finance-metrics">
+ <div><span>Almoços realizados</span><strong id="realizedAmount"></strong></div>
+ <div><span>Almoços planejados</span><strong id="reservedAmount"></strong></div>
+ <div><span>Gasto no mercado</span><strong id="marketAmount"></strong></div>
+ <div><span>Vale recebido</span><strong id="compactBudget"></strong></div>
+</div>
+<div class="finance-hero finance-secondary"><span>Saldo antes dos próximos almoços</span><strong id="availableNow"></strong><small>Desconta os almoços realizados e as compras de mercado. Não desconta as refeições ainda planejadas.</small></div>
+<details class="finance-details"><summary>Ver mais indicadores <span aria-hidden="true">⌄</span></summary>
+<div class="lines"><div class="line"><span>Média por almoço comprado</span><strong id="avg"></strong></div><div class="line"><span>Dias registrados</span><strong id="count"></strong></div><div class="line"><span>Compras no mercado</span><strong id="marketSpent"></strong></div><div class="line"><span>Total para almoços</span><strong id="spent"></strong></div><div class="line"><span>Vale comprometido</span><strong id="pct"></strong></div></div>
+<div class="hintbox" id="dailyInfo"></div></details>
+<p class="caption">Os saldos são estimativas com base nos registros do aplicativo; não representam necessariamente o saldo real do cartão.</p></aside></div>
 <section class="panel catalog" id="catalogSection"><div class="catalog-head"><div><h2>Restaurantes e preços</h2><p class="sub" style="margin-bottom:0">Explore cardápios ou compare refeições, sem sair desta seção.</p></div></div>
 <div class="catalog-view-tabs" role="tablist" aria-label="Restaurantes e comparador">
 <button type="button" id="viewExplore" class="catalog-view-tab active" role="tab" aria-controls="explorePane" aria-selected="true">Explorar restaurantes</button>
@@ -376,7 +407,7 @@ function refresh(){
  const left=Math.round((state.allowance-committed)*100)/100;
  const pct=state.allowance?committed/state.allowance*100:(committed?100:0);
  $('weekTotal').textContent='Realizado: '+cash(realized)+' · Planejado: '+cash(planned)+' · '+count+' dias registrados ('+home+' levando de casa)';
- const fmt={topBudget:cash(state.allowance),topSpent:cash(spent),topAvg:cash(avg),budget:cash(state.allowance),avg:cash(avg),count,spent:cash(spent),pct:pct.toFixed(1).replace('.',',')+'%',left:cash(left),availableNow:cash(availableNow),realizedAmount:cash(realized),reservedAmount:cash(planned),marketAmount:cash(marketSpent),marketSpent:cash(marketSpent)};
+ const fmt={topBudget:cash(state.allowance),topSpent:cash(spent),topAvg:cash(avg),budget:cash(state.allowance),avg:cash(avg),count,spent:cash(spent),pct:pct.toFixed(1).replace('.',',')+'%',left:cash(left),availableNow:cash(availableNow),realizedAmount:cash(realized),reservedAmount:cash(planned),marketAmount:cash(marketSpent),marketSpent:cash(marketSpent),compactBudget:cash(state.allowance)};
  Object.entries(fmt).forEach(([k,v])=>$(k).textContent=v);
  $('balance').classList.toggle('over',left<0);
  $('left').className='num '+(left<0?'bad':'good');
