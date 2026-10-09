@@ -81,6 +81,21 @@
 }
 @media(max-width:600px){.layout>.finance-compact{order:-1}}
 .compare-v2 .catalog-head .sub{margin-bottom:0}.compare-v2 .compare-controls{grid-template-columns:minmax(0,1.7fr) minmax(160px,.8fr) minmax(160px,.8fr);gap:12px;margin:22px 0 12px}.compare-v2 .compare-controls input,.compare-v2 .compare-controls select{height:46px;background:#fbfdfc}.compare-v2 .compare-more{border:1px solid #dfeae3;background:#f7faf8;border-radius:13px;margin-bottom:20px}.compare-v2 .compare-more>summary{cursor:pointer;color:#205e40;font-size:13px;font-weight:800;padding:15px}.compare-v2 .compare-more>summary span{color:#718279;font-size:12px;font-weight:400;margin-left:8px}.compare-v2 .compare-more-content{border-top:1px solid #dfeae3;padding:15px;display:grid;gap:12px}.compare-v2 .compare-max-field{display:grid;gap:7px;max-width:290px;font-size:12px;color:#52685b;font-weight:750}.compare-v2 .compare-max-field input{width:100%;min-height:43px;border:1px solid #d9e5df;border-radius:9px;padding:9px;background:white}.compare-v2 .compare-shipping{grid-template-columns:minmax(170px,240px) 1fr}.compare-v2 .compare-selected{margin:0 0 22px;border-radius:16px;padding:18px;background:#eff8f1}.compare-v2 .compare-selected-top{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:14px}.compare-v2 .compare-selected h3{font-size:20px;margin:0}.compare-v2 .compare-selected-hint{margin:5px 0 0!important;font-size:12px!important}.compare-v2 .compare-selected .reset{margin:0;white-space:nowrap}.compare-v2 .compare-selected .columns>div{border:1px solid #e0ece4;border-radius:12px;padding:16px;display:grid;align-content:start;gap:8px}.compare-v2 .selected-meal-name{margin:0!important;font-size:15px!important;color:#183829!important;font-weight:750}.compare-v2 .selected-meal-total{font-size:26px;color:#143e2b}.compare-v2 .selected-meal-note{font-size:12px!important;margin:0!important}.compare-v2 .lowest-tag{width:max-content;max-width:100%;border-radius:8px;padding:5px 8px;background:#ddf2e4;color:#17623e;font-size:11px;font-weight:800}.compare-v2 .compare-difference{background:#dcefe3;border-radius:11px;padding:13px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px;color:#165838;font-size:13px;font-weight:750}.compare-v2 .compare-difference strong{font-size:25px}.compare-v2 .compare-caveat{font-size:12px!important;margin:10px 0 0!important}.compare-v2 .compare-results-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:22px 0 12px}.compare-v2 .compare-results-heading>strong{font-size:17px}.compare-v2 .compare-summary{margin:0}.compare-v2 .compare-grid{gap:12px}.compare-v2 .compare-item{border-radius:13px;min-height:176px;padding:16px;gap:10px}.compare-v2 .compare-item.selected{border:2px solid #258657;padding:15px}.compare-v2 .compare-item-rest{font-size:12px}.compare-v2 .compare-item-name{font-size:15px}.compare-v2 .compare-item-bottom{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-top:auto;flex-wrap:wrap}.compare-v2 .compare-item .price{margin:0;font-size:24px}.compare-v2 .price-note{display:block;font-size:10px;font-weight:500;color:#7b8d81;margin-top:4px}.compare-v2 .compare-item button{min-height:39px}.compare-v2 .compare-empty{grid-column:1/-1;border:1px dashed #c8dbce;border-radius:12px;padding:20px;text-align:center}.compare-v2 .compare-empty p{color:#526b5b}@media(max-width:850px){.compare-v2 .compare-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-v2 .compare-search-field{grid-column:1/-1}}@media(max-width:600px){.compare-v2 .compare-grid{grid-template-columns:1fr}.compare-v2 .compare-item{min-height:0}.compare-v2 .compare-selected .columns{grid-template-columns:1fr}.compare-v2 .compare-more>summary span{display:block;margin:4px 0 0}.compare-v2 .compare-shipping{grid-template-columns:1fr}}@media(max-width:420px){.compare-v2 .compare-controls{grid-template-columns:1fr}.compare-v2 .compare-search-field{grid-column:auto}.compare-v2 .compare-selected-top{flex-wrap:wrap}}
+
+/* Acabamento do comparador: estados, legibilidade e toque. */
+.compare-v2 .compare-selected .columns>div.best-listed{border:2px solid #218459;background:#f6fcf7;box-shadow:inset 0 0 0 1px #bce3ca;padding:15px}
+.compare-v2 .compare-item button{min-height:44px;border-radius:9px;padding:11px 14px;font-size:12px;font-weight:800;background:#e2f2e8;border-color:#a9d5ba;color:#165b3b}
+.compare-v2 .compare-item button:hover{background:#cae8d6;border-color:#70b58d}
+.compare-v2 .compare-item.selected button{background:#176747;color:#fff;border-color:#176747}
+.compare-v2 .compare-item.selected button:hover{background:#10543a}
+.compare-v2 .compare-item .shipping{color:#829186;font-size:11px}
+.compare-v2 .compare-item .price-note{color:#6e8273}
+.compare-v2 .compare-more>summary{outline:none;border-radius:13px;list-style:none}
+.compare-v2 .compare-more>summary::-webkit-details-marker{display:none}
+.compare-v2 .compare-more>summary::before{content:'▸';margin-right:8px;color:#297950}
+.compare-v2 .compare-more[open]>summary::before{content:'▾'}
+.compare-v2 .compare-more>summary:focus-visible{outline:2px solid #5eb387;outline-offset:2px}
+@media(max-width:600px){.compare-v2 .compare-item button{min-height:46px}}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -560,12 +575,12 @@ function renderComparison(){
   const clear=document.createElement('button');clear.type='button';clear.className='reset';clear.textContent='Limpar comparação';clear.onclick=()=>{comparisonKeys=[];renderComparison()};
   head.append(headings,clear);panel.append(head);
   const columns=document.createElement('div');columns.className='columns';
-  const low=Math.min(...selected.map(m=>m.total));
+  const low=Math.min(...selected.map(m=>m.total));const tied=selected.length===2&&selected[0].total===selected[1].total;const anyUnknown=selected.some(m=>m.freightUnknown);const bothUnknown=selected.every(m=>m.freightUnknown);
   selected.forEach(item=>{
-   const col=document.createElement('div');
+   const col=document.createElement('div');if(selected.length===2&&!tied&&item.total===low)col.classList.add('best-listed');
    const restaurant=document.createElement('strong');restaurant.textContent=item.restaurant;
    const meal=document.createElement('p');meal.className='selected-meal-name';meal.textContent=item.name;
-   if(selected.length===2&&item.total===low){const badge=document.createElement('span');badge.className='lowest-tag';badge.textContent='Menor preço listado';col.append(badge)}
+   if(selected.length===2&&!tied&&item.total===low){const badge=document.createElement('span');badge.className='lowest-tag';badge.textContent=anyUnknown?'Menor valor listado (parcial)':'Menor preço com frete';col.append(badge)}
    const total=document.createElement('strong');total.className='selected-meal-total';total.textContent=cash(item.total);
    const freight=document.createElement('p');freight.className='selected-meal-note';freight.textContent=item.freightUnknown?'Preço base · frete não informado':'Prato '+cash(item.price)+' + frete '+cash(item.freight);
    col.append(restaurant,meal,total,freight);columns.append(col);
@@ -573,7 +588,7 @@ function renderComparison(){
   panel.append(columns);
   if(selected.length===2){
    const diff=document.createElement('div');diff.className='compare-difference';
-   const label=document.createElement('span');label.textContent='Diferença entre os preços listados';
+   const label=document.createElement('span');label.textContent=bothUnknown?'Diferença entre preços base':anyUnknown?'Diferença entre valores listados (frete parcial)':'Diferença entre preços com frete';
    const value=document.createElement('strong');value.textContent=cash(Math.abs(selected[0].total-selected[1].total));
    diff.append(label,value);panel.append(diff);
    const caveat=document.createElement('p');caveat.className='compare-caveat';caveat.textContent='Porções e acompanhamentos podem variar.'+(selected.some(x=>x.freightUnknown)?' Há frete não informado: a diferença pode mudar.':'');panel.append(caveat);
@@ -585,10 +600,10 @@ function renderComparison(){
   const card=document.createElement('article');card.className='compare-item'+(active?' selected':'');
   const restaurant=document.createElement('small');restaurant.className='compare-item-rest';restaurant.textContent=m.restaurant+' · '+m.category;
   const name=document.createElement('strong');name.className='compare-item-name';name.textContent=m.name;
-  const shipping=document.createElement('div');shipping.className='shipping';shipping.textContent=m.freightUnknown?'Frete não informado':m.freight?'Frete: '+cash(m.freight):'Frete: R$ 0,00';
+  const shipping=document.createElement('div');shipping.className='shipping';shipping.textContent=m.freightUnknown?'Frete a confirmar':m.freight?'Frete: '+cash(m.freight):'Sem frete adicional';
   const bottom=document.createElement('div');bottom.className='compare-item-bottom';
   const value=document.createElement('div');value.className='price';value.textContent=cash(m.total);
-  const priceNote=document.createElement('span');priceNote.className='price-note';priceNote.textContent=m.freightUnknown?'Preço base (total parcial)':'Preço com frete';value.append(priceNote);
+  const priceNote=document.createElement('span');priceNote.className='price-note';priceNote.textContent=m.freightUnknown?'Preço base · sem frete':'Total com frete';value.append(priceNote);
   const choose=document.createElement('button');choose.type='button';choose.textContent=active?'Selecionado ✓':'Adicionar à comparação';
   choose.setAttribute('aria-pressed',String(active));
   choose.onclick=()=>{comparisonKeys=active?comparisonKeys.filter(k=>k!==m.key):[...comparisonKeys.slice(-1),m.key];renderComparison()};
