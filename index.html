@@ -64,6 +64,7 @@
 .day-summary-status-action.is-done{background:#fff;border-color:#cfdfd5;color:#235c42}
 .day-summary-status-action.is-done:hover{background:#edf6f0}
 .day-summary-status-action:focus-visible{outline:3px solid #95d8ae;outline-offset:3px}
+.daily-spending-total{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #cee3d4;background:#edf7f0;border-radius:13px;padding:15px;margin-top:12px}.daily-total-description{display:grid;gap:5px}.daily-total-description strong{font-size:13px;color:#164b33}.daily-total-description small{font-size:11px;color:#597764;line-height:1.5}.daily-total-value{color:#185f3f;font-size:clamp(19px,3vw,24px);white-space:nowrap}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -334,7 +335,20 @@ function renderDays(){
  const applyRepeat=document.createElement('button');applyRepeat.type='button';applyRepeat.className='btn small';applyRepeat.textContent='Aplicar repetição';
  const cancelRepeat=document.createElement('button');cancelRepeat.type='button';cancelRepeat.className='btn secondary small';cancelRepeat.textContent='Cancelar';
  repeatActions.append(applyRepeat,cancelRepeat);repeatPanel.append(repeatTitle,repeatIntro,repeatMode,repeatDates,overwriteWrap,repeatInfo,repeatActions);
- repeatArea.append(repeatBtn,repeatPanel);box.append(main,statusBox,repeatArea,more,finishEdit);$('days').append(box);renderMarketPurchases(day);
+ repeatArea.append(repeatBtn,repeatPanel);box.append(main,statusBox,repeatArea,more,finishEdit);$('days').append(box);
+ const totalPanel=document.createElement('section');totalPanel.className='daily-spending-total';
+ const totalDescription=document.createElement('div');totalDescription.className='daily-total-description';
+ const totalTitle=document.createElement('strong');totalTitle.textContent='Total gasto no dia';
+ const totalBreakdown=document.createElement('small');totalDescription.append(totalTitle,totalBreakdown);
+ const totalValue=document.createElement('strong');totalValue.className='daily-total-value';
+ totalPanel.append(totalDescription,totalValue);
+ const updateDailyTotal=()=>{
+  const market=Math.round(state.marketPurchases.filter(p=>p.date===day).reduce((sum,p)=>sum+p.amount,0)*100)/100;
+  const meal=e.key&&e.status==='done'?entryPrice(e):0;
+  totalValue.textContent=cash(Math.round((meal+market)*100)/100);
+  totalBreakdown.textContent='Refeições realizadas: '+cash(meal)+' · Mercado: '+cash(market);
+ };
+ renderMarketPurchases(day,updateDailyTotal);$('days').append(totalPanel);updateDailyTotal();
  const syncSummary=()=>{
   const configured=!!e.key;summaryCard.classList.toggle('hidden',!configured||editingMeal);
   box.classList.toggle('hidden',configured&&!editingMeal);
@@ -357,7 +371,7 @@ function renderDays(){
   if(!e.key)return;
   e.status=e.status==='done'?'planned':'done';
   state.entries[day]=e;
-  renderCalendar();syncStatus();syncSummary();refresh();
+  renderCalendar();syncStatus();syncSummary();updateDailyTotal();refresh();
   notice(e.status==='done'?'Refeição marcada como realizada.':'Refeição voltou para planejada.');
  };
  finishEdit.onclick=()=>{if(!e.key){notice('Escolha uma refeição ou selecione Levar de casa.');return}editingMeal=false;repeatPanel.classList.add('hidden');syncSummary();notice('Refeição atualizada.')};
@@ -400,7 +414,7 @@ function renderDays(){
    deliveryGroup.classList.toggle('hidden',!hasMeal);
    feeGroup.classList.toggle('hidden',!hasMeal||e.mode!=='delivery');
    fee.disabled=!hasMeal||e.mode!=='delivery';
-   price.textContent=cash(entryPrice(e));syncStatus();syncSummary();
+   price.textContent=cash(entryPrice(e));syncStatus();syncSummary();updateDailyTotal();
    refresh();
  };
  const commit=()=>{if(!e.key)delete state.entries[day];else state.entries[day]=e;renderCalendar();update()};
@@ -412,7 +426,7 @@ function renderDays(){
  fee.oninput=()=>{e.fee=clamp(fee.value,0,10000);commit()};
  populate();update();
 }
-function renderMarketPurchases(day){
+function renderMarketPurchases(day,onChange=()=>{}){
  const root=document.createElement('section');root.className='market-purchases';
  const heading=document.createElement('div');heading.className='market-heading';
  const title=document.createElement('strong');title.textContent='Compras no mercado';
@@ -439,7 +453,7 @@ function renderMarketPurchases(day){
    const edit=document.createElement('button');edit.type='button';edit.className='btn secondary small';edit.textContent='Editar';
    edit.onclick=()=>{editing=p.id;store.value=p.store;amount.value=p.amount.toFixed(2).replace('.',',');form.classList.remove('hidden');add.classList.add('hidden');store.focus()};
    const remove=document.createElement('button');remove.type='button';remove.className='btn secondary small';remove.textContent='Excluir';
-   remove.onclick=()=>{if(!confirm('Excluir a compra de '+cash(p.amount)+' em '+p.store+'?'))return;state.marketPurchases=state.marketPurchases.filter(x=>x.id!==p.id);save();draw();renderCalendar();refresh();notice('Compra excluída.')};
+   remove.onclick=()=>{if(!confirm('Excluir a compra de '+cash(p.amount)+' em '+p.store+'?'))return;state.marketPurchases=state.marketPurchases.filter(x=>x.id!==p.id);save();draw();onChange();renderCalendar();refresh();notice('Compra excluída.')};
    row.append(info,edit,remove);list.append(row);
   })
  };
@@ -453,7 +467,7 @@ function renderMarketPurchases(day){
   if(!store.value.trim()||!Number.isFinite(value)||value<=0||value>100000){notice('Preencha estabelecimento e valor pago válido.');return}
   if(editing){const existing=state.marketPurchases.find(p=>p.id===editing);if(existing){existing.store=store.value.trim().slice(0,80);existing.amount=value}}
   else state.marketPurchases.push({id:'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,8),date:day,store:store.value.trim().slice(0,80),amount:value});
-  save();close();draw();renderCalendar();refresh();notice('Compra registrada e saldo atualizado.');
+  save();close();draw();onChange();renderCalendar();refresh();notice('Compra registrada e saldo atualizado.');
  };
  draw();
 }
