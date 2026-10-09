@@ -274,6 +274,11 @@ function comparisonItems(){
  });
 }
 function renderComparison(){
+ const filled=restaurants.filter(r=>compareFreightInputs[r.id]!==undefined&&compareFreightInputs[r.id]!=='');
+ $('compareFreightCount').textContent=filled.length+' de '+restaurants.length+' configurados';
+ const chips=$('freightChips');chips.replaceChildren();
+ filled.slice(0,3).forEach(r=>{const b=document.createElement('button');b.type='button';b.textContent=r.name+': '+cash(Number(compareFreightInputs[r.id]));b.onclick=()=>{$('freightRestaurant').value=r.id;$('freightValue').value=compareFreightInputs[r.id]};chips.append(b)});
+ if(filled.length>3){const more=document.createElement('small');more.textContent='+'+(filled.length-3)+' outros';chips.append(more)}
  const all=comparisonItems(),q=$('compareSearch').value.trim().toLocaleLowerCase('pt-BR'),type=$('compareType').value,sort=$('compareSort').value;
  const maxRaw=$('compareMax').value.trim(),max=maxRaw===''?Infinity:clamp(maxRaw,0,10000);
  const items=all.filter(m=>(!q||(m.name+' '+m.restaurant).toLocaleLowerCase('pt-BR').includes(q))&&(type==='all'?m.type!=='drink':m.type===type)&&m.total<=max);
