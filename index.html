@@ -259,22 +259,18 @@ const compareMealType=(category,name)=>{
 };
 const compareFreightInputs={};
 function initCompareFreight(){
- const root=$('compareFreightFields');root.replaceChildren();
- restaurants.forEach(r=>{
-  const label=document.createElement('label');
-  label.textContent='Frete de '+r.name+' (R$)';
-  const input=document.createElement('input');input.type='number';input.min='0';input.max='10000';input.step='0.01';
-  input.placeholder='Não informado';input.setAttribute('aria-label','Frete estimado de '+r.name);
-  input.addEventListener('input',renderComparison);
-  label.append(input);root.append(label);compareFreightInputs[r.id]=input;
- });
+ const picker=$('freightRestaurant'),input=$('freightValue');
+ restaurants.forEach(r=>{const option=document.createElement('option');option.value=r.id;option.textContent=r.name;picker.append(option)});
+ picker.onchange=()=>{input.value=compareFreightInputs[picker.value]??''};
+ input.oninput=()=>{compareFreightInputs[picker.value]=input.value;renderComparison()};
+ picker.onchange();
 }
 function comparisonItems(){
  return restaurants.flatMap(r=>{
-  const raw=compareFreightInputs[r.id]?.value.trim()??'';
-  const freightUnknown=raw===''||!Number.isFinite(Number(raw))||Number(raw)<0;
-  const freight=freightUnknown?0:clamp(raw,0,10000);
-  return r.meals.map((m,i)=>({key:r.id+':'+i,restaurant:r.name,name:m[0],category:m[2]||'Outros',type:compareMealType(m[2]||'',m[0]),price:Number(m[1]),freight,freightUnknown,total:Number(m[1])+freight}));
+ const raw=compareFreightInputs[r.id]??'';
+ const freightUnknown=raw==='';
+ const freight=freightUnknown?0:clamp(raw,0,10000);
+ return r.meals.map((m,i)=>({key:r.id+':'+i,restaurant:r.name,name:m[0],category:m[2]||'Outros',type:compareMealType(m[2]||'',m[0]),price:Number(m[1]),freight,freightUnknown,total:Number(m[1])+freight}));
  });
 }
 function renderComparison(){
