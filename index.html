@@ -66,6 +66,19 @@
 .day-summary-status-action:focus-visible{outline:3px solid #95d8ae;outline-offset:3px}
 .daily-spending-total{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #cee3d4;background:#edf7f0;border-radius:13px;padding:15px;margin-top:12px}.daily-total-description{display:grid;gap:5px}.daily-total-description strong{font-size:13px;color:#164b33}.daily-total-description small{font-size:11px;color:#597764;line-height:1.5}.daily-total-value{color:#185f3f;font-size:clamp(19px,3vw,24px);white-space:nowrap}
 .day-editor .day-extra{margin-top:14px;padding-top:13px}.day-editor .day-extra>summary{padding:8px 0;line-height:1.5}.day-editor .day-extra .repeat-area{border-top:1px solid #e7eee9;padding-top:12px;margin-top:14px}.day-editor .day-extra .repeat-button{width:100%;text-align:left}.day-editor .day-extra[open]{padding-bottom:3px}
+
+/* Em telas estreitas, valor compacto evita que o preço invada outra data. */
+@media(max-width:600px){
+ .calendar-day{min-width:0;overflow:hidden}
+ .calendar-day-footer{align-items:flex-start;flex-direction:column;gap:3px}
+ .calendar-day-footer .amount{display:block;max-width:100%;font-size:0;line-height:1.2;white-space:nowrap}
+ .calendar-day-footer .amount::after{content:attr(data-compact);font-size:11px;letter-spacing:-.3px}
+ .calendar-spend-badges{margin-left:0}
+ .calendar-day .day-status-mark{right:4px}
+}
+@media(max-width:380px){
+ .calendar-day-footer .amount::after{font-size:10px;letter-spacing:-.4px}
+}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -258,7 +271,7 @@ function renderCalendar(){
  if(e.key){const mark=document.createElement('span');mark.className='day-status-mark';mark.textContent=e.status==='done'?'✓':'◷';mark.title=e.status==='done'?'Realizado':'Planejado';b.append(mark)}
  if(meal||mealExpense||marketExpense){
   const footer=document.createElement('span');footer.className='calendar-day-footer';
-  if(meal){const price=document.createElement('span');price.className='amount';price.textContent=cash(entryPrice(e));footer.append(price)}
+  if(meal){const price=document.createElement('span');price.className='amount';price.textContent=cash(entryPrice(e));price.dataset.compact=entryPrice(e).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});footer.append(price)}
   if(mealExpense||marketExpense){
    const badges=document.createElement('span');badges.className='calendar-spend-badges';
    for(const [show,kind,label] of [[mealExpense,'meal','Refeição realizada'],[marketExpense,'market','Compra no mercado']]){
