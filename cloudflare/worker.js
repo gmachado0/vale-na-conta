@@ -8,7 +8,7 @@ const redirect=(url,headers={})=>new Response(null,{status:302,headers:{Location
 const cookie=(name,value,days=0)=>name+'='+encodeURIComponent(value)+'; Path=/; Secure; HttpOnly; SameSite=Lax'+(days?'; Max-Age='+Math.round(days*86400):'; Max-Age=0');
 const fromCookie=(request,name)=>{const m=(request.headers.get('Cookie')||'').match(new RegExp('(?:^|;\\s*)'+name+'=([^;]+)'));return m?decodeURIComponent(m[1]):''};
 const enc=new TextEncoder(),dec=new TextDecoder();
-const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const b64=b=>{const bytes=new Uint8Array(b);let out='';for(let i=0;i<bytes.length;i+=8192)out+=String.fromCharCode(...bytes.slice(i,i+8192));return btoa(out).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')+'='.repeat((4-s.length%4)%4)),c=>c.charCodeAt(0));
 async function key(env){const bits=await crypto.subtle.digest('SHA-256',enc.encode(env.SESSION_KEY));return crypto.subtle.importKey('raw',bits,{name:'AES-GCM'},false,['encrypt','decrypt'])}
 async function seal(data,env){const iv=crypto.getRandomValues(new Uint8Array(12));const bytes=await crypto.subtle.encrypt({name:'AES-GCM',iv},await key(env),enc.encode(JSON.stringify(data)));return b64(iv)+'.'+b64(bytes)}
