@@ -24,7 +24,15 @@ export default {async fetch(request,env){
  if(path==='/auth/login'){if(request.method!=='GET')return response('Method not allowed',405);const state=b64(crypto.getRandomValues(new Uint8Array(32)));const github=new URL('https://github.com/login/oauth/authorize');github.searchParams.set('client_id',env.GITHUB_CLIENT_ID);github.searchParams.set('redirect_uri',origin+'/auth/callback');github.searchParams.set('scope','public_repo');github.searchParams.set('state',state);github.searchParams.set('allow_signup','false');return redirect(github.href,{'Set-Cookie':cookie('vnc_state',state,0.1)})}
  if(path==='/auth/callback'){if(request.method!=='GET')return response('Method not allowed',405);const state=url.searchParams.get('state')||'',expected=fromCookie(request,'vnc_state');if(!state||!expected||state!==expected||!url.searchParams.get('code'))return response('OAuth state inválido. Inicie o login novamente.',400);
  const form=new URLSearchParams({client_id:env.GITHUB_CLIENT_ID,client_secret:env.GITHUB_CLIENT_SECRET,code:url.searchParams.get('code'),redirect_uri:origin+'/auth/callback'});
- const exchange=await fetch('https://github.com/login/oauth/access_token',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/x-www-form-urlencoded'},body:form});const result=await exchange.json();if(!result.access_token)return response('Falha no login GitHub.',403);
+ let result;
+ try{const exchange=await fetch('https://github.com/login/oauth/access_token',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/x-www-form-urlencoded'},body:form});result=await exchange.json();if(!exchange.ok)return response('GitHub OAuth não respondeu corretamente (HTTP '+exchange.status+').',502)}
+ catch(error){console.error('GitHub token exchange transport error',error?.name||'Error');return response('Não foi possível conectar ao GitHub para concluir o login.',502)}
+ if(!result.access_token){
+  const allowed=['incorrect_client_credentials','bad_verification_code','redirect_uri_mismatch','application_suspended','unverified_user_email','access_denied'];
+  const code=allowed.includes(result.error)?result.error:'unknown_oauth_error';
+  console.warn('GitHub OAuth token exchange rejected',code);
+  return response('O GitHub recusou a autenticação. Código: '+code+'. Confira as credenciais e a URL de retorno do aplicativo OAuth.',403);
+ }
  let phase='GitHub profile';
  try{const profile=await api('https://api.github.com/user',result.access_token);if(profile.login!==OWNER)return response('Conta GitHub não autorizada para administrar este painel.',403);
  phase='repository permissions';
