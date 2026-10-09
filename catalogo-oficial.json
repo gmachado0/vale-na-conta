@@ -1,0 +1,639 @@
+{
+  "schema": 1,
+  "updatedAt": "2026-10-09",
+  "restaurants": [
+    {
+      "id": "bk",
+      "name": "BK Lanches",
+      "description": "Cardápio enviado ao site · pratos da casa, xis, sanduíches e outros",
+      "update": "Preços conforme cardápio fornecido",
+      "url": "",
+      "meals": [
+        [
+          "Ala minuta de frango",
+          22.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta de carne",
+          24.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta à milanesa (frango)",
+          25.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta à milanesa (carne)",
+          27.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta com queijo (frango)",
+          24.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta com queijo (carne)",
+          26.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta acebolada (frango)",
+          25.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta acebolada (carne)",
+          27.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta à parmegiana (frango)",
+          28.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta à parmegiana (carne)",
+          30.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta chuleta",
+          27.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta strogonoff",
+          27.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta fricassê",
+          23.9,
+          "Pratos da casa"
+        ],
+        [
+          "Ala minuta peixe à milanesa",
+          28.9,
+          "Pratos da casa"
+        ],
+        [
+          "Xis salada",
+          24,
+          "Xis"
+        ],
+        [
+          "Xis frango",
+          24,
+          "Xis"
+        ],
+        [
+          "Xis frango com bacon",
+          26.9,
+          "Xis"
+        ],
+        [
+          "Xis frango com calabresa",
+          26.9,
+          "Xis"
+        ],
+        [
+          "Xis frango com coração",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis carne com coração",
+          28.9,
+          "Xis"
+        ],
+        [
+          "Xis carne com calabresa",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis calabresa",
+          25,
+          "Xis"
+        ],
+        [
+          "Xis lombo com calabresa",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis lombo",
+          25,
+          "Xis"
+        ],
+        [
+          "Xis gordo",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis bacon",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis coração",
+          26.9,
+          "Xis"
+        ],
+        [
+          "Xis strogonoff",
+          28.9,
+          "Xis"
+        ],
+        [
+          "Xis fricassê",
+          25.9,
+          "Xis"
+        ],
+        [
+          "Xis Itália",
+          27.9,
+          "Xis"
+        ],
+        [
+          "Xis filé",
+          30.9,
+          "Xis"
+        ],
+        [
+          "Xis filé com bacon",
+          32.9,
+          "Xis"
+        ],
+        [
+          "Xis misto",
+          28.9,
+          "Xis"
+        ],
+        [
+          "Xis big carne",
+          29.9,
+          "Xis"
+        ],
+        [
+          "Xis big frango",
+          29.9,
+          "Xis"
+        ],
+        [
+          "Xis big misto",
+          29.9,
+          "Xis"
+        ],
+        [
+          "Xis gaúcho",
+          29.9,
+          "Xis"
+        ],
+        [
+          "Xis bagual",
+          33.9,
+          "Xis"
+        ],
+        [
+          "Xis tudo",
+          33.9,
+          "Xis"
+        ],
+        [
+          "Xis BK",
+          29.9,
+          "Xis"
+        ],
+        [
+          "Xis vegetariano",
+          20,
+          "Xis"
+        ],
+        [
+          "Bauru BK carne",
+          23.9,
+          "Bauru"
+        ],
+        [
+          "Bauru BK frango",
+          22.9,
+          "Bauru"
+        ],
+        [
+          "Bauru BK master",
+          24.9,
+          "Bauru"
+        ],
+        [
+          "Hambúrguer com fritas (carne)",
+          24,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer com fritas (frango)",
+          24,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer big carne com fritas",
+          28,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer carne com calabresa e fritas",
+          29,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer carne com coração e fritas",
+          29,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer frango com bacon e fritas",
+          29,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer coração com fritas",
+          26,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer calabresa com fritas",
+          26,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer filé com fritas",
+          30,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer strogonoff com fritas",
+          28,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer fricassê com fritas",
+          25,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer BK com fritas",
+          29,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer big BK com fritas",
+          32,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer big misto com fritas",
+          28,
+          "Hambúrguer"
+        ],
+        [
+          "Hambúrguer vegetariano com fritas",
+          20,
+          "Hambúrguer"
+        ],
+        [
+          "Dog aberto",
+          19,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog aberto frango",
+          20,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog aberto calabresa",
+          21,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog aberto strogonoff",
+          22,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog prensado",
+          15,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog prensado calabresa",
+          17,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog prensado especial",
+          17,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog prensado frango",
+          16,
+          "Cachorro-quente"
+        ],
+        [
+          "Dog prensado strogonoff",
+          19,
+          "Cachorro-quente"
+        ],
+        [
+          "Buraco quente",
+          26,
+          "Cachorro-quente"
+        ],
+        [
+          "Sanduíche natural frango",
+          12,
+          "Sanduíches"
+        ],
+        [
+          "Sanduíche natural presunto",
+          12,
+          "Sanduíches"
+        ],
+        [
+          "Sanduíche natural salame",
+          12,
+          "Sanduíches"
+        ],
+        [
+          "Torrada simples",
+          10,
+          "Sanduíches"
+        ],
+        [
+          "Torrada simples com ovo",
+          12,
+          "Sanduíches"
+        ],
+        [
+          "Torrada dupla",
+          14,
+          "Sanduíches"
+        ],
+        [
+          "Torrada dupla com ovo",
+          16,
+          "Sanduíches"
+        ],
+        [
+          "Torrada italiana",
+          18,
+          "Sanduíches"
+        ],
+        [
+          "Torrada da casa",
+          18,
+          "Sanduíches"
+        ],
+        [
+          "Prensado",
+          12,
+          "Sanduíches"
+        ],
+        [
+          "Prensadão",
+          16,
+          "Sanduíches"
+        ],
+        [
+          "Pastel frango P",
+          10,
+          "Pastéis"
+        ],
+        [
+          "Pastel frango G",
+          14,
+          "Pastéis"
+        ],
+        [
+          "Pastel carne com ovo P",
+          10,
+          "Pastéis"
+        ],
+        [
+          "Pastel carne com ovo G",
+          14,
+          "Pastéis"
+        ],
+        [
+          "Pastel frango com calabresa G",
+          18,
+          "Pastéis"
+        ],
+        [
+          "Pastel frango com bacon G",
+          18,
+          "Pastéis"
+        ],
+        [
+          "Pastel queijo e orégano G",
+          14,
+          "Pastéis"
+        ],
+        [
+          "Pastel calabresa G",
+          16,
+          "Pastéis"
+        ],
+        [
+          "Pastel presunto e queijo G",
+          14,
+          "Pastéis"
+        ],
+        [
+          "Pastel pizza G",
+          16,
+          "Pastéis"
+        ],
+        [
+          "Pastel basca G",
+          18,
+          "Pastéis"
+        ],
+        [
+          "Pastel coração G",
+          19,
+          "Pastéis"
+        ],
+        [
+          "Pastel strogonoff G",
+          19,
+          "Pastéis"
+        ],
+        [
+          "Pastel fricassê G",
+          16,
+          "Pastéis"
+        ],
+        [
+          "Pastel lombo G",
+          16,
+          "Pastéis"
+        ],
+        [
+          "Pastel filé G",
+          21,
+          "Pastéis"
+        ]
+      ]
+    },
+    {
+      "id": "pestana",
+      "name": "Restaurante Pestana",
+      "description": "27 itens transcritos de capturas do cardápio Anota AI · marmitas, combos, promoções e bebidas",
+      "update": "Preços conforme capturas de tela enviadas em outubro de 2026. Confira valores e disponibilidade antes de pedir. Frete e possíveis opcionais não foram informados.",
+      "url": "https://pedido.anota.ai/loja/restaurante-pestana?referer=gbp_anota",
+      "meals": [
+        [
+          "Frango assado — marmita caseira pequena",
+          27.99,
+          "Mais pedida"
+        ],
+        [
+          "Almoço frango assado + salada de maionese + Coca-Cola 350ml",
+          35.99,
+          "Combos com Coca-Cola"
+        ],
+        [
+          "Almoço costela desossada + salada de maionese + Coca-Cola 350ml",
+          38.99,
+          "Combos com Coca-Cola"
+        ],
+        [
+          "Almoço frango grelhado + salada de maionese + Coca-Cola 350ml",
+          36.99,
+          "Combos com Coca-Cola"
+        ],
+        [
+          "Combo frango assado Tradição — serve 2 pessoas",
+          65.99,
+          "Combos churrasco"
+        ],
+        [
+          "Combo churrasco Pestana — serve 6 pessoas",
+          219.99,
+          "Combos churrasco"
+        ],
+        [
+          "Combo churrasco Farroupilha — serve 3 a 4 pessoas",
+          109.99,
+          "Combos churrasco"
+        ],
+        [
+          "Marmita caseira — frango assado",
+          27.99,
+          "Marmitas"
+        ],
+        [
+          "Marmita caseira — frango grelhado",
+          27.99,
+          "Marmitas"
+        ],
+        [
+          "Marmita — costela desossada",
+          34.99,
+          "Marmitas"
+        ],
+        [
+          "Marmitas frango assado!",
+          29.99,
+          "Promoções"
+        ],
+        [
+          "Marmita frango grelhado",
+          30.99,
+          "Promoções"
+        ],
+        [
+          "Trio marmita frango grelhado + Coca-Cola 350ml + maionese de batata",
+          45.99,
+          "Promoções"
+        ],
+        [
+          "Marmita costela desossada",
+          33.99,
+          "Promoções"
+        ],
+        [
+          "Trio marmita costela desossada + Coca-Cola 350ml + maionese de batata",
+          47.99,
+          "Promoções"
+        ],
+        [
+          "Trio marmita sobrecoxa + Coca-Cola 350ml + maionese de batata",
+          44.99,
+          "Promoções"
+        ],
+        [
+          "Sprite Original 2L",
+          20,
+          "Bebidas"
+        ],
+        [
+          "Coca-Cola 2L",
+          20,
+          "Bebidas"
+        ],
+        [
+          "Fanta Laranja 2L",
+          20,
+          "Bebidas"
+        ],
+        [
+          "Guaraná Fruki 2L",
+          20,
+          "Bebidas"
+        ],
+        [
+          "Água Flua sem gás 500ml",
+          5,
+          "Bebidas"
+        ],
+        [
+          "Água mineral Aqua Fresh com gás 510ml",
+          5,
+          "Bebidas"
+        ],
+        [
+          "H2O Limão 500ml",
+          10,
+          "Bebidas"
+        ],
+        [
+          "Coca-Cola Zero 2L",
+          20,
+          "Bebidas"
+        ],
+        [
+          "H2Oh Limoneto 500ml",
+          10,
+          "Bebidas"
+        ],
+        [
+          "Coca-Cola lata 350ml",
+          8,
+          "Bebidas"
+        ],
+        [
+          "Coca-Cola 600ml",
+          12,
+          "Bebidas"
+        ]
+      ]
+    }
+  ]
+}
