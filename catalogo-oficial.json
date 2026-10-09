@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updatedAt": "2026-10-09T16:12:52.642Z",
+  "updatedAt": "2026-10-09T16:16:11.370Z",
   "restaurants": [
     {
       "id": "bk",
@@ -632,20 +632,6 @@
           "Coca-Cola 600ml",
           12,
           "Bebidas"
-        ]
-      ]
-    },
-    {
-      "id": "custommv15yrgu",
-      "name": "teste",
-      "description": "teste",
-      "update": "Cardápio oficial cadastrado pela administração",
-      "url": "",
-      "meals": [
-        [
-          "teste",
-          20,
-          "teste"
         ]
       ]
     }
