@@ -144,7 +144,7 @@ function exportData(){
   const restaurant=key?.startsWith('own:')?'Refeição própria':restaurants.find(r=>key?.startsWith(r.id+':'))?.name||'';
   const mode=entry.mode||'included';
   const fee=meal&&mode==='delivery'?Number(entry.fee)||0:0;
-  return {day,restaurant,meal:meal?.[0]||'Sem gasto / levar de casa',base:meal?Number(meal[1]):0,mode:meal?(mode==='pickup'?'Retirada':mode==='delivery'?'Entrega':'Entrega inclusa'):'—',fee,total:(meal?Number(meal[1]):0)+fee};
+  return {day,restaurant,meal:meal?.name||'Sem gasto / levar de casa',base:meal?Number(meal.price):0,mode:meal?(mode==='pickup'?'Retirada':mode==='delivery'?'Entrega':'Entrega inclusa'):'—',fee,total:(meal?Number(meal.price):0)+fee};
  });
  const weekly=rows.reduce((sum,r)=>sum+r.total,0);
  const spent=monthlySpent(),avg=rows.length?spent/rows.length:0;
