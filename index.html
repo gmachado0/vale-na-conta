@@ -124,8 +124,8 @@ function renderDays(){
  const fee=document.createElement('input');fee.type='number';fee.min='0';fee.max='10000';fee.step='0.01';fee.inputMode='decimal';fee.value=e.fee;feeGroup.append(fee);
  advanced.append(sortGroup,capGroup,deliveryGroup,feeGroup);more.append(summary,advanced);box.append(main,more);$('days').append(box);
  const populate=()=>{
-   const id=source.value;mealSelect.replaceChildren();mealSelect.disabled=!id;mealSelect.classList.toggle('hidden',!id);
-   if(!id)return;
+   const id=source.value;mealSelect.replaceChildren();mealSelect.disabled=!id||id==='home';mealSelect.classList.toggle('hidden',!id||id==='home');
+   if(!id||id==='home')return;
    const empty=document.createElement('option');empty.value='';empty.textContent='Selecione a refeição';mealSelect.append(empty);
    const limit=mealMaxPrice===''?Infinity:Number(mealMaxPrice);
    let items=all.filter(m=>m.key.startsWith(id+':')&&(m.price<=limit||m.key===e.key));
