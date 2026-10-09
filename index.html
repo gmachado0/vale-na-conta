@@ -80,6 +80,7 @@
  .calendar-day-footer .amount::after{font-size:10px;letter-spacing:-.4px}
 }
 @media(max-width:600px){.layout>.finance-compact{order:-1}}
+.compare-v2 .catalog-head .sub{margin-bottom:0}.compare-v2 .compare-controls{grid-template-columns:minmax(0,1.7fr) minmax(160px,.8fr) minmax(160px,.8fr);gap:12px;margin:22px 0 12px}.compare-v2 .compare-controls input,.compare-v2 .compare-controls select{height:46px;background:#fbfdfc}.compare-v2 .compare-more{border:1px solid #dfeae3;background:#f7faf8;border-radius:13px;margin-bottom:20px}.compare-v2 .compare-more>summary{cursor:pointer;color:#205e40;font-size:13px;font-weight:800;padding:15px}.compare-v2 .compare-more>summary span{color:#718279;font-size:12px;font-weight:400;margin-left:8px}.compare-v2 .compare-more-content{border-top:1px solid #dfeae3;padding:15px;display:grid;gap:12px}.compare-v2 .compare-max-field{display:grid;gap:7px;max-width:290px;font-size:12px;color:#52685b;font-weight:750}.compare-v2 .compare-max-field input{width:100%;min-height:43px;border:1px solid #d9e5df;border-radius:9px;padding:9px;background:white}.compare-v2 .compare-shipping{grid-template-columns:minmax(170px,240px) 1fr}.compare-v2 .compare-selected{margin:0 0 22px;border-radius:16px;padding:18px;background:#eff8f1}.compare-v2 .compare-selected-top{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:14px}.compare-v2 .compare-selected h3{font-size:20px;margin:0}.compare-v2 .compare-selected-hint{margin:5px 0 0!important;font-size:12px!important}.compare-v2 .compare-selected .reset{margin:0;white-space:nowrap}.compare-v2 .compare-selected .columns>div{border:1px solid #e0ece4;border-radius:12px;padding:16px;display:grid;align-content:start;gap:8px}.compare-v2 .selected-meal-name{margin:0!important;font-size:15px!important;color:#183829!important;font-weight:750}.compare-v2 .selected-meal-total{font-size:26px;color:#143e2b}.compare-v2 .selected-meal-note{font-size:12px!important;margin:0!important}.compare-v2 .lowest-tag{width:max-content;max-width:100%;border-radius:8px;padding:5px 8px;background:#ddf2e4;color:#17623e;font-size:11px;font-weight:800}.compare-v2 .compare-difference{background:#dcefe3;border-radius:11px;padding:13px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px;color:#165838;font-size:13px;font-weight:750}.compare-v2 .compare-difference strong{font-size:25px}.compare-v2 .compare-caveat{font-size:12px!important;margin:10px 0 0!important}.compare-v2 .compare-results-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:22px 0 12px}.compare-v2 .compare-results-heading>strong{font-size:17px}.compare-v2 .compare-summary{margin:0}.compare-v2 .compare-grid{gap:12px}.compare-v2 .compare-item{border-radius:13px;min-height:176px;padding:16px;gap:10px}.compare-v2 .compare-item.selected{border:2px solid #258657;padding:15px}.compare-v2 .compare-item-rest{font-size:12px}.compare-v2 .compare-item-name{font-size:15px}.compare-v2 .compare-item-bottom{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-top:auto;flex-wrap:wrap}.compare-v2 .compare-item .price{margin:0;font-size:24px}.compare-v2 .price-note{display:block;font-size:10px;font-weight:500;color:#7b8d81;margin-top:4px}.compare-v2 .compare-item button{min-height:39px}.compare-v2 .compare-empty{grid-column:1/-1;border:1px dashed #c8dbce;border-radius:12px;padding:20px;text-align:center}.compare-v2 .compare-empty p{color:#526b5b}@media(max-width:850px){.compare-v2 .compare-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.compare-v2 .compare-search-field{grid-column:1/-1}}@media(max-width:600px){.compare-v2 .compare-grid{grid-template-columns:1fr}.compare-v2 .compare-item{min-height:0}.compare-v2 .compare-selected .columns{grid-template-columns:1fr}.compare-v2 .compare-more>summary span{display:block;margin:4px 0 0}.compare-v2 .compare-shipping{grid-template-columns:1fr}}@media(max-width:420px){.compare-v2 .compare-controls{grid-template-columns:1fr}.compare-v2 .compare-search-field{grid-column:auto}.compare-v2 .compare-selected-top{flex-wrap:wrap}}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -120,19 +121,17 @@
 <div id="manageMeals" class="manage-meals"></div>
 <div class="manage-backup"><strong>Backup dos cardápios</strong><p class="caption">Exporte suas alterações em JSON para poder restaurá-las em outro navegador. Importar substitui somente os cardápios personalizados deste dispositivo, não os registros do calendário.</p><div class="actions"><button id="exportMenus" class="btn secondary small" type="button">Exportar cardápios</button><label class="btn secondary small import-label">Importar backup JSON<input id="importMenus" type="file" accept=".json,application/json" class="hidden"></label></div></div>
 </div><p class="caption footline">Compartilhar uma simulação envia a seleção de refeições e valores no endereço gerado. Não publica um novo restaurante para os demais usuários.</p></div>
-<div class="compare-section hidden" id="compareSection" role="tabpanel" aria-labelledby="viewCompare">
-<div class="catalog-head"><div><h2>Comparar refeições</h2><p class="sub" style="margin-bottom:0">Encontre opções que cabem no seu vale e compare o custo estimado em restaurantes diferentes.</p></div></div>
-<div class="compare-controls">
- <label>Buscar refeição<input id="compareSearch" type="search" placeholder="Ex.: frango, marmita, xis" aria-label="Buscar refeições para comparar"></label>
- <label>Tipo de refeição<select id="compareType" aria-label="Tipo de refeição no comparador"><option value="all">Todos os tipos</option><option value="meal">Pratos e marmitas</option><option value="snack">Lanches</option></select></label>
- <label>Preço máximo total (R$)<input id="compareMax" type="number" min="0" step="0.01" placeholder="Sem limite" aria-label="Preço máximo incluindo frete"></label>
- <label>Ordenação<select id="compareSort"><option value="asc">Mais baratos primeiro</option><option value="desc">Mais caros primeiro</option><option value="name">Nome do prato</option></select></label>
-</div>
-<div class="compare-shipping freight-widget"><div class="freight-intro"><strong>Frete na comparação</strong><span id="compareFreightCount">Nenhum informado</span></div><p>Selecione um restaurante para ajustar seu frete. O valor afeta a comparação de todos os pratos dele.</p><div class="freight-row"><label>Restaurante<select id="freightRestaurant"></select></label><label>Frete (R$)<input id="freightValue" type="number" min="0" max="10000" step="0.01" placeholder="Não informado"></label></div><small>Use 0 para entrega gratuita. Deixe vazio quando o frete for desconhecido.</small><div id="freightChips"></div></div>
-<div class="compare-summary" id="compareSummary" aria-live="polite"></div>
-<div id="compareResults" class="compare-grid"></div>
+<div class="compare-section hidden compare-v2" id="compareSection" role="tabpanel" aria-labelledby="viewCompare">
+<div class="catalog-head"><div><h2>Comparar refeições</h2><p class="sub">Encontre opções que cabem no seu vale e compare o custo estimado em restaurantes diferentes.</p></div></div>
+<div class="compare-controls"><label class="compare-search-field">Buscar prato ou restaurante<input id="compareSearch" type="search" placeholder="Ex.: frango, marmita, xis" aria-label="Buscar refeições para comparar"></label>
+<label>Categoria<select id="compareType" aria-label="Tipo de refeição no comparador"><option value="all">Todos os tipos</option><option value="meal">Pratos e marmitas</option><option value="snack">Lanches</option></select></label>
+<label>Ordenar por<select id="compareSort"><option value="asc">Menor preço</option><option value="desc">Maior preço</option><option value="name">Nome do prato</option></select></label></div>
+<details class="compare-more"><summary>Filtros e frete <span>Preço máximo e entrega por restaurante</span></summary><div class="compare-more-content">
+<label class="compare-max-field">Preço máximo total (R$)<input id="compareMax" type="number" min="0" step="0.01" placeholder="Sem limite" aria-label="Preço máximo incluindo frete"></label>
+<div class="compare-shipping freight-widget"><div class="freight-intro"><strong>Frete por restaurante</strong><span id="compareFreightCount">Nenhum informado</span></div><p>O frete informado é somado aos pratos do restaurante selecionado.</p><div class="freight-row"><label>Restaurante<select id="freightRestaurant"></select></label><label>Frete (R$)<input id="freightValue" type="number" min="0" max="10000" step="0.01" placeholder="Não informado"></label></div><small>Use 0 para entrega gratuita. Deixe vazio quando o frete for desconhecido.</small><div id="freightChips"></div></div></div></details>
 <div id="compareSelected" class="compare-selected hidden" aria-live="polite"></div>
-</div>
+<div class="compare-results-heading"><strong>Opções disponíveis</strong><span class="compare-summary" id="compareSummary" aria-live="polite"></span></div>
+<div id="compareResults" class="compare-grid"></div></div>
 </section>
 <div class="footer">Vale na Conta · Simulador independente de planejamento alimentar</div></main><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>(()=>{'use strict';
@@ -544,36 +543,59 @@ function renderComparison(){
  const filled=restaurants.filter(r=>compareFreightInputs[r.id]!==undefined&&compareFreightInputs[r.id]!=='');
  $('compareFreightCount').textContent=filled.length+' de '+restaurants.length+' configurados';
  const chips=$('freightChips');chips.replaceChildren();
- filled.slice(0,3).forEach(r=>{const b=document.createElement('button');b.type='button';b.textContent=r.name+': '+cash(Number(compareFreightInputs[r.id]));b.onclick=()=>{$('freightRestaurant').value=r.id;$('freightValue').value=compareFreightInputs[r.id]};chips.append(b)});
- if(filled.length>3){const more=document.createElement('small');more.textContent='+'+(filled.length-3)+' outros';chips.append(more)}
+ filled.slice(0,3).forEach(r=>{const btn=document.createElement('button');btn.type='button';btn.textContent=r.name+': '+cash(Number(compareFreightInputs[r.id]));btn.onclick=()=>{$('freightRestaurant').value=r.id;$('freightValue').value=compareFreightInputs[r.id]};chips.append(btn)});
+ if(filled.length>3){const small=document.createElement('small');small.textContent='+'+(filled.length-3)+' outros';chips.append(small)}
  const all=comparisonItems(),q=$('compareSearch').value.trim().toLocaleLowerCase('pt-BR'),type=$('compareType').value,sort=$('compareSort').value;
  const maxRaw=$('compareMax').value.trim(),max=maxRaw===''?Infinity:clamp(maxRaw,0,10000);
  const items=all.filter(m=>(!q||(m.name+' '+m.restaurant).toLocaleLowerCase('pt-BR').includes(q))&&(type==='all'?m.type!=='drink':m.type===type)&&m.total<=max);
- items.sort((a,b)=>sort==='desc'?b.total-a.total:sort==='name'?a.name.localeCompare(b.name,'pt-BR'):a.total-b.total);
- $('compareSummary').textContent=items.length+' opções encontradas · valores por item, sem padronizar tamanho ou porção';
+ items.sort((x,y)=>sort==='desc'?y.total-x.total:sort==='name'?x.name.localeCompare(y.name,'pt-BR'):x.total-y.total);
+ $('compareSummary').textContent=items.length+' opções encontradas · valores por item';
+ const selected=comparisonKeys.map(key=>all.find(item=>item.key===key)).filter(Boolean);
+ const panel=$('compareSelected');panel.replaceChildren();panel.classList.toggle('hidden',!selected.length);
+ if(selected.length){
+  const head=document.createElement('div');head.className='compare-selected-top';
+  const headings=document.createElement('div');const title=document.createElement('h3');title.textContent='Sua comparação';
+  const hint=document.createElement('p');hint.className='compare-selected-hint';hint.textContent=selected.length===1?'Escolha mais uma refeição para comparar os preços.':'Compare os preços listados e a diferença entre as opções.';
+  headings.append(title,hint);
+  const clear=document.createElement('button');clear.type='button';clear.className='reset';clear.textContent='Limpar comparação';clear.onclick=()=>{comparisonKeys=[];renderComparison()};
+  head.append(headings,clear);panel.append(head);
+  const columns=document.createElement('div');columns.className='columns';
+  const low=Math.min(...selected.map(m=>m.total));
+  selected.forEach(item=>{
+   const col=document.createElement('div');
+   const restaurant=document.createElement('strong');restaurant.textContent=item.restaurant;
+   const meal=document.createElement('p');meal.className='selected-meal-name';meal.textContent=item.name;
+   if(selected.length===2&&item.total===low){const badge=document.createElement('span');badge.className='lowest-tag';badge.textContent='Menor preço listado';col.append(badge)}
+   const total=document.createElement('strong');total.className='selected-meal-total';total.textContent=cash(item.total);
+   const freight=document.createElement('p');freight.className='selected-meal-note';freight.textContent=item.freightUnknown?'Preço base · frete não informado':'Prato '+cash(item.price)+' + frete '+cash(item.freight);
+   col.append(restaurant,meal,total,freight);columns.append(col);
+  });
+  panel.append(columns);
+  if(selected.length===2){
+   const diff=document.createElement('div');diff.className='compare-difference';
+   const label=document.createElement('span');label.textContent='Diferença entre os preços listados';
+   const value=document.createElement('strong');value.textContent=cash(Math.abs(selected[0].total-selected[1].total));
+   diff.append(label,value);panel.append(diff);
+   const caveat=document.createElement('p');caveat.className='compare-caveat';caveat.textContent='Porções e acompanhamentos podem variar.'+(selected.some(x=>x.freightUnknown)?' Há frete não informado: a diferença pode mudar.':'');panel.append(caveat);
+  }
+ }
  const root=$('compareResults');root.replaceChildren();
  items.slice(0,48).forEach(m=>{
-  const card=document.createElement('div');card.className='compare-item'+(comparisonKeys.includes(m.key)?' selected':'');
-  const rest=document.createElement('small');rest.textContent=m.restaurant+' · '+m.category;
-  const name=document.createElement('strong');name.textContent=m.name;
+  const active=comparisonKeys.includes(m.key);
+  const card=document.createElement('article');card.className='compare-item'+(active?' selected':'');
+  const restaurant=document.createElement('small');restaurant.className='compare-item-rest';restaurant.textContent=m.restaurant+' · '+m.category;
+  const name=document.createElement('strong');name.className='compare-item-name';name.textContent=m.name;
+  const shipping=document.createElement('div');shipping.className='shipping';shipping.textContent=m.freightUnknown?'Frete não informado':m.freight?'Frete: '+cash(m.freight):'Frete: R$ 0,00';
+  const bottom=document.createElement('div');bottom.className='compare-item-bottom';
   const value=document.createElement('div');value.className='price';value.textContent=cash(m.total);
-  const shipping=document.createElement('div');shipping.className='shipping';shipping.textContent=m.freightUnknown?'Frete não informado · total parcial':m.freight?'Inclui frete de '+cash(m.freight):'Frete adicional: R$ 0,00';
-  const choose=document.createElement('button');choose.type='button';choose.textContent=comparisonKeys.includes(m.key)?'Selecionado ✓':'Comparar';
-  choose.onclick=()=>{if(comparisonKeys.includes(m.key))comparisonKeys=comparisonKeys.filter(k=>k!==m.key);else comparisonKeys=[...comparisonKeys.slice(-1),m.key];renderComparison()};
-  card.append(rest,name,value,shipping,choose);root.append(card);
+  const priceNote=document.createElement('span');priceNote.className='price-note';priceNote.textContent=m.freightUnknown?'Preço base (total parcial)':'Preço com frete';value.append(priceNote);
+  const choose=document.createElement('button');choose.type='button';choose.textContent=active?'Selecionado ✓':'Adicionar à comparação';
+  choose.setAttribute('aria-pressed',String(active));
+  choose.onclick=()=>{comparisonKeys=active?comparisonKeys.filter(k=>k!==m.key):[...comparisonKeys.slice(-1),m.key];renderComparison()};
+  bottom.append(value,choose);card.append(restaurant,name,shipping,bottom);root.append(card);
  });
- if(items.length>48){const note=document.createElement('p');note.className='muted';note.textContent='Exibindo os primeiros 48 resultados. Refine sua busca para encontrar outras opções.';root.append(note)}
- if(!items.length){const note=document.createElement('p');note.className='muted';note.textContent='Nenhuma opção encontrada. Remova algum filtro ou aumente o valor máximo.';root.append(note)}
- const chosen=comparisonKeys.map(key=>all.find(item=>item.key===key)).filter(Boolean);
- const box=$('compareSelected');box.replaceChildren();box.classList.toggle('hidden',chosen.length===0);
- if(chosen.length){
-  const title=document.createElement('h3');title.textContent=chosen.length===1?'Escolha mais uma opção para comparar':'Comparação entre os pratos selecionados';box.append(title);
-  const columns=document.createElement('div');columns.className='columns';
-  chosen.forEach(item=>{const col=document.createElement('div');const heading=document.createElement('strong');heading.textContent=item.restaurant;const line=document.createElement('p');line.textContent=item.name;const total=document.createElement('strong');total.textContent=cash(item.total);const note=document.createElement('p');note.textContent=item.freightUnknown?'Preço base '+cash(item.price)+' · frete não informado':'Preço base '+cash(item.price)+' + frete '+cash(item.freight);col.append(heading,line,total,note);columns.append(col)});
-  box.append(columns);
-  if(chosen.length===2){const difference=Math.abs(chosen[0].total-chosen[1].total),cheaper=chosen[0].total<=chosen[1].total?chosen[0]:chosen[1];const p=document.createElement('p');p.textContent='Diferença de '+cash(difference)+' por item. Menor valor listado: '+cheaper.restaurant+'. Atenção: os pratos podem ter tamanhos e acompanhamentos diferentes'+(chosen.some(x=>x.freightUnknown)?'; há frete não informado, portanto a diferença pode mudar.':'.');box.append(p)}
-  const clear=document.createElement('button');clear.className='reset';clear.textContent='Limpar comparação';clear.onclick=()=>{comparisonKeys=[];renderComparison()};box.append(clear);
- }
+ if(items.length>48){const p=document.createElement('p');p.className='muted';p.textContent='Exibindo 48 resultados. Refine a busca para ver outras opções.';root.append(p)}
+ if(!items.length){const message=document.createElement('div');message.className='compare-empty';const p=document.createElement('p');p.textContent='Nenhuma refeição encontrada com esses filtros.';const clear=document.createElement('button');clear.type='button';clear.className='btn secondary small';clear.textContent='Limpar filtros';clear.onclick=()=>{$('compareSearch').value='';$('compareType').value='all';$('compareMax').value='';$('compareSort').value='asc';renderComparison()};message.append(p,clear);root.append(message)}
 }
 ['compareSearch','compareType','compareSort','compareMax'].forEach(id=>$(id).addEventListener('input',renderComparison));
 function renderOwn(){const root=$('ownCatalog');root.replaceChildren();state.own.forEach((m,i)=>root.append(foodCard(m,'own:'+i,true)));if(!state.own.length){const p=document.createElement('p');p.className='muted';p.textContent='Você ainda não cadastrou refeições.';root.append(p)}}
