@@ -153,7 +153,7 @@ function renderDays(){
 }
 function refresh(){
  ['allowance','workdays','daily'].forEach(id=>$(id).value=state[id]);
- const day=getEntry(activeDay);$('dayPrice0').textContent=cash(entryPrice(day));
+ const day=getEntry(activeDay);const priceNode=$('dayPrice0');if(priceNode)priceNode.textContent=cash(entryPrice(day));
  const rows=monthlyRows(),spent=Math.round(monthlySpent()*100)/100,count=rows.length,avg=count?spent/count:0,left=Math.round((state.allowance-spent)*100)/100,pct=state.allowance?spent/state.allowance*100:(spent?100:0);
  $('weekTotal').textContent='Registrado neste mês: '+cash(spent)+' · '+count+' dia(s) com refeição';
  const fmt={topBudget:cash(state.allowance),topAvg:cash(avg),topLeft:cash(left),topPct:state.allowance?(Math.max(0,left/state.allowance)*100).toFixed(1).replace('.',',')+'% disponível':'Sem saldo informado',budget:cash(state.allowance),avg:cash(avg),count,spent:cash(spent),pct:pct.toFixed(1).replace('.',',')+'%',left:cash(left)};
