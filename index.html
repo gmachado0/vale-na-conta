@@ -120,10 +120,35 @@ function sanitizeMenuData(raw){
  if(Array.isArray(raw.custom))out.custom=raw.custom.slice(0,50).filter(r=>r&&/^custom[a-z0-9]+$/.test(r.id||'')).map(r=>clean(r,r.id)).filter((r,i,a)=>a.findIndex(x=>x.id===r.id)===i);
  return out;
 }
+let officialCatalog=null;
 function syncRestaurants(){
  const defaults=[{id:'bk',name:'BK Lanches',description:'Cardápio enviado ao site · pratos da casa, xis, sanduíches e outros',update:'Preços conforme cardápio fornecido',meals:bkMeals},{id:'pestana',name:'Restaurante Pestana',description:'Cardápio de referência · confira preços antes de pedir',update:'Preços de referência informados anteriormente',url:'https://pedido.anota.ai/loja/restaurante-pestana?referer=gbp_anota',meals:pestanaMeals}];
- restaurants.splice(0,restaurants.length,...defaults.map(r=>{const e=state.menuData.builtins[r.id];return e?{...r,name:e.name,description:e.description,meals:e.meals}:{...r,meals:r.meals.map(m=>[...m])}}),...state.menuData.custom.map(r=>({...r,update:'Cardápio cadastrado neste dispositivo'})));
- if(!restaurants.some(r=>r.id===selected))selected='bk';
+ const source=officialCatalog||defaults;
+ const official=source.map(r=>{const e=state.menuData.builtins[r.id];return e?{...r,name:e.name,description:e.description,meals:e.meals}:{...r,meals:r.meals.map(m=>m?[...m]:null)}});
+ const ids=new Set(official.map(r=>r.id));
+ restaurants.splice(0,restaurants.length,...official,...state.menuData.custom.filter(r=>!ids.has(r.id)).map(r=>({...r,update:'Cardápio cadastrado neste dispositivo'})));
+ if(!restaurants.some(r=>r.id===selected))selected=restaurants[0]?.id||'bk';
+}
+function readOfficialCatalog(raw){
+ if(!raw||raw.schema!==1||!Array.isArray(raw.restaurants)||raw.restaurants.length>100)throw Error('Catálogo inválido');
+ const ids=new Set();
+ const entries=raw.restaurants.map(r=>{
+  if(!r||!/^([a-z0-9]{1,64})$/.test(r.id||'')||ids.has(r.id)||typeof r.name!=='string'||!r.name.trim()||!Array.isArray(r.meals)||r.meals.length>500)throw Error('Restaurante inválido');
+  ids.add(r.id);
+  const url=typeof r.url==='string'&&/^https?:\/\//i.test(r.url)?r.url.slice(0,500):'';
+  const meals=r.meals.map(m=>{if(m===null)return null;if(!Array.isArray(m)||typeof m[0]!=='string'||!m[0].trim()||!Number.isFinite(Number(m[1]))||Number(m[1])<0||Number(m[1])>10000)throw Error('Prato inválido');return [m[0].trim().slice(0,100),Number(m[1]),String(m[2]||'Outros').slice(0,60)]});
+  return {id:r.id,name:r.name.trim().slice(0,70),description:String(r.description||'').slice(0,300),update:String(r.update||'Cardápio oficial publicado pela administração'),url,meals};
+ });
+ return entries;
+}
+async function loadOfficialCatalog(){
+ let candidate=null;
+ try{const old=localStorage.getItem('valeOfficialCatalogV1');if(old)candidate=readOfficialCatalog(JSON.parse(old))}catch(e){}
+ if(candidate){officialCatalog=candidate;updateMenuViews();initCompareFreight()}
+ try{const response=await fetch('./catalogo-oficial.json',{cache:'no-store'});if(!response.ok)throw Error('Não disponível');const raw=await response.json();const current=readOfficialCatalog(raw);
+ officialCatalog=current;try{localStorage.setItem('valeOfficialCatalogV1',JSON.stringify(raw))}catch(e){}
+ updateMenuViews();initCompareFreight();
+ }catch(e){if(!candidate)console.warn('Catálogo online indisponível; utilizando cardápios iniciais.')}
 }
 function persistRestaurant(r){
  const data={id:r.id,name:r.name,description:r.description,meals:r.meals.map(m=>m?[...m]:null)};
@@ -448,5 +473,6 @@ $('exportPdf').onclick=()=>{
 
 $('prevMonth').onclick=()=>setMonth(-1);$('nextMonth').onclick=()=>setMonth(1);
 renderCalendar();renderDays();renderRestaurants();renderCatalog();renderOwn();initCompareFreight();renderComparison();renderMenuManager();refresh();
+loadOfficialCatalog();
 if('serviceWorker' in navigator&&location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 })();</script></body></html>
