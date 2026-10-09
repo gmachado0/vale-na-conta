@@ -59,6 +59,11 @@
 .day-finish-edit{margin-top:14px}
 .day-meal-summary.hidden,.day-editor.hidden,.day-finish-edit.hidden{display:none!important}
 @media(max-width:600px){.day-meal-summary{padding:13px}.day-summary-name{font-size:16px}.day-summary-price{font-size:20px}}
+.day-summary-status-action{width:100%;min-height:40px;border:1px solid #166c48;border-radius:9px;background:#176747;color:#fff;font:inherit;font-size:12px;font-weight:800;cursor:pointer;padding:10px 12px}
+.day-summary-status-action:hover{background:#10553a}
+.day-summary-status-action.is-done{background:#fff;border-color:#cfdfd5;color:#235c42}
+.day-summary-status-action.is-done:hover{background:#edf6f0}
+.day-summary-status-action:focus-visible{outline:3px solid #95d8ae;outline-offset:3px}
 </style></head><body>
 <header class="hero"><div class="hero-inner"><div class="top"><div class="brand"><span>R$</span> Vale na Conta</div><div class="tag">Gratuito · sem cadastro</div></div><h1>Seu vale pode render mais.</h1><p>Escolha refeições dos cardápios disponíveis ou informe os seus próprios valores. Planeje o mês e descubra quanto sobra para o mercado.</p><nav class="quick-links" aria-label="Acesso rápido"><a href="#compareSection">Comparar refeições ↓</a><a href="#catalogSection">Explorar cardápios ↓</a></nav></div></header>
 <main class="shell">
@@ -277,7 +282,9 @@ function renderDays(){
  const summaryBottom=document.createElement('div');summaryBottom.className='day-summary-bottom';
  const summaryPrice=document.createElement('strong');summaryPrice.className='day-summary-price';
  const editMeal=document.createElement('button');editMeal.type='button';editMeal.className='btn secondary small';editMeal.textContent='Alterar refeição';
- summaryBottom.append(summaryPrice,editMeal);summaryCard.append(summaryTop,summaryName,summaryInfo,summaryBottom);
+ summaryBottom.append(summaryPrice,editMeal);
+ const summaryStatusAction=document.createElement('button');summaryStatusAction.type='button';summaryStatusAction.className='day-summary-status-action';
+ summaryCard.append(summaryTop,summaryName,summaryInfo,summaryBottom,summaryStatusAction);
  $('days').append(summaryCard);
  let editingMeal=!e.key;
  const finishEdit=document.createElement('button');finishEdit.type='button';finishEdit.className='btn secondary small day-finish-edit';finishEdit.textContent='Concluir edição';
@@ -340,9 +347,19 @@ function renderDays(){
   summaryPrice.textContent=cash(entryPrice(e));
   summaryStatus.textContent=e.status==='done'?'✓ Realizado':'◷ Planejado';
   summaryStatus.classList.toggle('done',e.status==='done');
+  summaryStatusAction.textContent=e.status==='done'?'↶ Voltar para planejado':'✓ Marcar como realizado';
+  summaryStatusAction.setAttribute('aria-label',e.status==='done'?'Alterar refeição para planejada':'Marcar refeição como realizada');
+  summaryStatusAction.classList.toggle('is-done',e.status==='done');
   finishEdit.classList.toggle('hidden',!configured);
  };
  editMeal.onclick=()=>{editingMeal=true;syncSummary()};
+ summaryStatusAction.onclick=()=>{
+  if(!e.key)return;
+  e.status=e.status==='done'?'planned':'done';
+  state.entries[day]=e;
+  renderCalendar();syncStatus();syncSummary();refresh();
+  notice(e.status==='done'?'Refeição marcada como realizada.':'Refeição voltou para planejada.');
+ };
  finishEdit.onclick=()=>{if(!e.key){notice('Escolha uma refeição ou selecione Levar de casa.');return}editingMeal=false;repeatPanel.classList.add('hidden');syncSummary();notice('Refeição atualizada.')};
 
  const repeatCandidates=()=>dateKeys().filter(k=>k!==day&&(repeatMode.value==='custom'?true:repeatMode.value==='weekday'?new Date(k+'T12:00:00').getDay()===new Date(day+'T12:00:00').getDay():k>day&&![0,6].includes(new Date(k+'T12:00:00').getDay())));
